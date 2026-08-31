@@ -1,6 +1,7 @@
 import requests
 from urllib.parse import urljoin
 from mensapi.scraper.Page import Page
+from mensapi.scraper.weekday import Weekday
 
 class Website:
 
@@ -20,18 +21,8 @@ class Website:
     @staticmethod
     def _order_by_week(page: Page): 
         page_day = page.day
-        print(page_day)
 
-        weekday_order = {
-            "Montag" : 0,
-            "Dienstag": 1,
-            "Mittwoch": 2,
-            "Donnerstag": 3,
-            "Freitag": 4,
-            "Samstag": 5,
-            "Sonntag": 6,
-        }
-        return weekday_order.get(page_day)
+        return Weekday[page_day]
 
 
     def get_iframes(self, page: Page) -> list[Page]:

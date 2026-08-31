@@ -16,7 +16,6 @@ def test_website():
     # Assert
     assert BASE_URL in str(website)
 
-
 def test_fetch():
     """ Fetch returns a Page object containing domain and any subpaths """
     # Arrange
@@ -27,7 +26,7 @@ def test_fetch():
     assert "Speiseplan3500" in str(page)
 
 def test_get_iframes():
-    """ The Studierendenwerk Website contains seven iframes """
+    """ Fetching the Studierendenwerk Website returns seven iframes """
     # Arrange
     website = Website(BASE_URL)
     main_page = website.fetch("Index.html")
@@ -36,7 +35,6 @@ def test_get_iframes():
     # Assert 
     assert len(iframes) == 7
 
-# How to control the first day
 def test_day():
     """ The scraper always sorts and returns Monday as the first day in the list """
     # Arrange
