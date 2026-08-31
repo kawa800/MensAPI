@@ -1,6 +1,6 @@
 import requests
 from urllib.parse import urljoin
-from Page import Page
+from mensapi.scraper.Page import Page
 
 class Website:
 
@@ -25,3 +25,7 @@ class Website:
             pages.append(self.fetch(iframe_url))
 
         return pages
+    
+    def __repr__(self):
+        return f"Website-URL: {self.base_url}"
+

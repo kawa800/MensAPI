@@ -2,19 +2,21 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlopen 
 from urllib.parse import urljoin
-from Website import Website
+from mensapi.scraper.Website import Website
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 
+def main():
+    website = Website(BASE_URL)
+    print(website)
+
+    main_page = website.fetch("Index.html")
+
+    for iframe in website.get_iframes(main_page):
+        print(iframe.day)
+
 if __name__ == "__main__":
-    main_page = Website(BASE_URL)
-    print(main_page)
-
-    iframe_0 = main_page.fetch("Site_0.html")
-    print(iframe_0)
-
-    print(iframe_0.day)
-
+    main()
 
 
 # res = requests.get(URL)

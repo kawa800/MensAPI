@@ -1,6 +1,30 @@
+import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from scraper.scraper import get_day 
 
-def test_get_day():
-    print("test")
+from mensapi.scraper.Page import Page 
+from mensapi.scraper.Website import Website 
+
+
+BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
+
+def test_website():
+    """ Instantiating a Website returns an object with the same base_url as instance variable """
+    # Arrange 
+    # Act
+    website = Website(BASE_URL)
+    # Assert
+    assert BASE_URL in str(website)
+
+
+def test_fetch():
+    """ Fetch returns a Page object containing domain and any subpaths """
+    # Arrange
+    website = Website(BASE_URL)
+    # Act
+    page = website.fetch("Index.html")
+    # Assert
+    assert "Speiseplan3500" in str(page)
+
+def test_get_iframes():
+    """ The Studierendenwerk Website contains  """
