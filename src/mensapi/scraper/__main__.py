@@ -12,8 +12,11 @@ def main():
 
     main_page = website.fetch("Index.html")
 
+    i = 0
     for iframe in website.get_iframes(main_page):
         print(iframe.day)
+        i+=1
+        print(i)
 
 if __name__ == "__main__":
     main()

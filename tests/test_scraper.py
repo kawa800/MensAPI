@@ -27,4 +27,23 @@ def test_fetch():
     assert "Speiseplan3500" in str(page)
 
 def test_get_iframes():
-    """ The Studierendenwerk Website contains  """
+    """ The Studierendenwerk Website contains seven iframes """
+    # Arrange
+    website = Website(BASE_URL)
+    main_page = website.fetch("Index.html")
+    # Act
+    iframes = website.get_iframes(main_page)
+    # Assert 
+    assert len(iframes) == 7
+
+def test_day():
+    """ The scraper always returns Monday as the first day in the list """
+    # Arrange
+    website = Website(BASE_URL)
+    main_page = website.fetch("Index.html")
+    # Act
+    iframes = website.get_iframes(main_page)
+
+    iframes = wesbite.get_iframes(main_page)
+
+    assert first_iframe.day == "Monday"
