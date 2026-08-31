@@ -1,10 +1,14 @@
 import pytest
+import requests
+import datetime as dt
+from unittest.mock import Mock
+
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
-from object_mother import BASE_URL, main_page 
+from object_mother import BASE_URL, main_page, iframes, mock_with_test_date
 
 def test_website():
     """ Instantiating a Website returns an object with the same base_url as instance variable """
@@ -25,26 +29,22 @@ def test_fetch():
 def test_get_iframes():
     """ Fetching the Studierendenwerk Website returns seven iframes """
     # Arrange
-    website = Website(BASE_URL)
-    main_page = website.fetch("Index.html")
     # Act
-    iframes = website.get_iframes(main_page)
+    iframe_list = iframes()
     # Assert 
-    assert len(iframes) == 7
+    assert len(iframe_list) == 7
 
 def test_day():
     """ The scraper always sorts and returns Monday as the first day in the list """
-    # Arrange
-    website = Website(BASE_URL)
-    main_page = website.fetch("Index.html")
+    iframe_list = iframes()
+    assert iframe_list[0].day == "Montag"
 
-    # Act
-    iframes = website.get_iframes(main_page)
-    first_iframe = iframes[0]
-
-    assert first_iframe.day == "Montag"
-
+# Define in object_mother
 def test_date():
     """ The scraper returns the current date """
+    mock = mock_with_test_date()
+    
+    page = Page("https://hauptmensa.de", response=mock)
 
+    assert page.date == "31.08.2026"
 

@@ -10,7 +10,6 @@ class Website:
         self.session = requests.Session() # Keeps TCP connection open instead of multiple response.get(URL) requests
         self.parser = parser
 
-
     def fetch(self, url: str) -> Page:
         """ Fetch a single page """
         full_url = urljoin(self.base_url, url)
@@ -21,9 +20,7 @@ class Website:
     @staticmethod
     def _order_by_week(page: Page): 
         page_day = page.day
-
         return Weekday[page_day]
-
 
     def get_iframes(self, page: Page) -> list[Page]:
         """ Find all iFrames on a page and fetch their src.
@@ -40,4 +37,3 @@ class Website:
         
     def __repr__(self):
         return f"Website-URL: {self.base_url}"
-
