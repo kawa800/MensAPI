@@ -4,9 +4,7 @@ from fastapi.testclient import TestClient
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
-
-
-BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
+from object_mother import BASE_URL, main_page 
 
 def test_website():
     """ Instantiating a Website returns an object with the same base_url as instance variable """
@@ -19,9 +17,8 @@ def test_website():
 def test_fetch():
     """ Fetch returns a Page object containing domain and any subpaths """
     # Arrange
-    website = Website(BASE_URL)
     # Act
-    page = website.fetch("Index.html")
+    page = main_page()
     # Assert
     assert "Speiseplan3500" in str(page)
 
@@ -46,3 +43,8 @@ def test_day():
     first_iframe = iframes[0]
 
     assert first_iframe.day == "Montag"
+
+def test_date():
+    """ The scraper returns the current date """
+
+
