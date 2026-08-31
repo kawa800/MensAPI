@@ -17,15 +17,36 @@ class Website:
         response.raise_for_status() # Raise HTTPError if connection fails
         return Page(full_url, response, parser=self.parser)
 
+    @staticmethod
+    def _order_by_week(page: Page): 
+        page_day = page.day
+        print(page_day)
+
+        weekday_order = {
+            "Montag" : 0,
+            "Dienstag": 1,
+            "Mittwoch": 2,
+            "Donnerstag": 3,
+            "Freitag": 4,
+            "Samstag": 5,
+            "Sonntag": 6,
+        }
+        return weekday_order.get(page_day)
+
+
     def get_iframes(self, page: Page) -> list[Page]:
-        """ Find all iFrames on a page and fetch their src """
+        """ Find all iFrames on a page and fetch their src.
+        Maintains natural order, returning iframe with Monday as first element in list """
+
         pages = []
         for iframe in page.select("iframe"):
             iframe_url = iframe.attrs['src']
             pages.append(self.fetch(iframe_url))
 
-        return pages
-    
+        sorted_pages = sorted(pages, key=self._order_by_week)
+
+        return sorted_pages 
+        
     def __repr__(self):
         return f"Website-URL: {self.base_url}"
 

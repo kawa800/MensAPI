@@ -12,12 +12,12 @@ class Page:
     @property
     def title(self) -> str | None:
         tag = self.soup.select_one("title")
-        return tag.get_text() if tag else None
+        return tag.get_text().strip() if tag else None
 
     @property
     def day(self) -> str | None:
         day = self.soup.find("h2")
-        return day.get_text() if day else None
+        return day.get_text().strip() if day else None
 
     def select(self, css_selector: str):
         return self.soup.select(css_selector)

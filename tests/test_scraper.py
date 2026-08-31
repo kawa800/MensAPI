@@ -36,14 +36,15 @@ def test_get_iframes():
     # Assert 
     assert len(iframes) == 7
 
+# How to control the first day
 def test_day():
-    """ The scraper always returns Monday as the first day in the list """
+    """ The scraper always sorts and returns Monday as the first day in the list """
     # Arrange
     website = Website(BASE_URL)
     main_page = website.fetch("Index.html")
+
     # Act
     iframes = website.get_iframes(main_page)
+    first_iframe = iframes[0]
 
-    iframes = wesbite.get_iframes(main_page)
-
-    assert first_iframe.day == "Monday"
+    assert first_iframe.day == "Montag"
