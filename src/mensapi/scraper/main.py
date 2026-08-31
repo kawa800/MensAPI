@@ -6,19 +6,15 @@ from Website import Website
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 
-def main():
-    website = Website(BASE_URL)
-    print(website)
-
-    main_page = website.fetch("Index.html")
-
-    all_iframes = website.get_iframes(main_page)
-
-    for iframe in all_iframes:
-        print(iframe)
-
 if __name__ == "__main__":
-    main()
+    main_page = Website(BASE_URL)
+    print(main_page)
+
+    iframe_0 = main_page.fetch("Site_0.html")
+    print(iframe_0)
+
+    print(iframe_0.day)
+
 
 
 # res = requests.get(URL)
