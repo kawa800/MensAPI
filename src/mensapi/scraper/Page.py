@@ -18,3 +18,9 @@ class Page:
     def day(self) -> str | None:
         day = self.soup.find("h2")
         return day.get_text() if day else None
+
+    def select(self, css_selector: str):
+        return self.soup.select(css_selector)
+    
+    def __repr__(self):
+        return f"url: {self.url}, status: {self.response.status_code}, title: {self.title}"
