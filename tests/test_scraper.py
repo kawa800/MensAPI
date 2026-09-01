@@ -31,14 +31,20 @@ def test_date(mock_with_test_date):
     page = mock_with_test_date
     assert page.date == "31.08.2026"
 
-def test_meals_count(schweineschnitzel_mock):
+def test_meals_single_count(schweineschnitzel_mock):
     """ The scraper returns one meal if the website contains one meal """
     page = schweineschnitzel_mock
     list_of_meals = page.meals
     assert len(list_of_meals) == 1
 
-def test_meals_name(schweineschnitzel_mock):
+def test_meals_single_name(schweineschnitzel_mock):
     """ The scraper returns the cleaned string 'Schweineschnitzel mit Paprikacremesauce """
     page = schweineschnitzel_mock
     list_of_meals = page.meals
     assert "Schweineschnitzel mit Paprikacremesauce" == list_of_meals[0]
+
+def test_meals_multiple_count(curryvurst_mock):
+    """ The scraper returns three meals if the website contains three meals """
+    page = curryvurst_mock
+    list_of_meals = page.meals
+    assert len(list_of_meals) == 3

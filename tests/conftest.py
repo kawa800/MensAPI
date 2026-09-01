@@ -45,4 +45,4 @@ def schweineschnitzel_mock() -> Page:
 @pytest.fixture
 def curryvurst_mock() -> Page:
     curryvurst_html = Path("fixtures/html/curryvurst.html").read_text(encoding="utf-8")
-    return _construct_mock(schweineschnitzel_html)
+    return _construct_mock(curryvurst_html)
