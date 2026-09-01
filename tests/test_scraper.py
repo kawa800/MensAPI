@@ -18,33 +18,38 @@ def test_fetch(main_page):
     assert "Speiseplan3500" in str(main_page)
 
 def test_get_iframes(iframes):
-    """ Fetching the Studierendenwerk Website returns seven iframes """
+    """ Fetch the Studierendenwerk Website and return seven iframes """
     assert len(iframes) == 7
 
 def test_day(iframes):
-    """ The scraper always sorts and returns Monday as the first day in the list """
+    """ Sort and return Monday as the first day in the list """
     iframe_first_day = iframes[0]
     assert iframe_first_day.day == "Montag"
 
 def test_date(mock_with_test_date):
-    """ The scraper returns the current date """
+    """ Return the correct date """
     page = mock_with_test_date
     assert page.date == "31.08.2026"
 
 def test_meals_single_count(schweineschnitzel_mock):
-    """ The scraper returns one meal if the website contains one meal """
+    """ Return one meal if the website contains one meal """
     page = schweineschnitzel_mock
     list_of_meals = page.meals
     assert len(list_of_meals) == 1
 
 def test_meals_single_name(schweineschnitzel_mock):
-    """ The scraper returns the cleaned string 'Schweineschnitzel mit Paprikacremesauce """
+    """ Return the cleaned string 'Schweineschnitzel mit Paprikacremesauce """
     page = schweineschnitzel_mock
-    list_of_meals = page.meals
-    assert "Schweineschnitzel mit Paprikacremesauce" == list_of_meals[0]
+    assert "Schweineschnitzel mit Paprikacremesauce" == page.meals[0]
 
 def test_meals_multiple_count(curryvurst_mock):
-    """ The scraper returns three meals if the website contains three meals """
+    """ Return three meals if the website contains three meals """
     page = curryvurst_mock
-    list_of_meals = page.meals
-    assert len(list_of_meals) == 3
+    assert len(page.meals) == 3
+
+def test_prices(curryvurst_mock):
+    """ Return 2.30, 4.80 and 1.80 for the mock website curryvurst.html """
+    page = curryvurst_mock
+    list_of_prices = page.prices
+
+    assert page.prices == [2.30, 4.80, 1.80]
