@@ -24,6 +24,16 @@ class Page:
         date = self.soup.find("h2").find_next_sibling("p")
         return date.get_text().strip() if date else None
 
+    @property
+    def meals(self) -> str | None:
+        meals = []
+        meal1 = self.soup.find_all("div", class_="menuitem")
+        print(meal1)
+
+        meals.append(meal1)
+
+        return meals if meals else None
+
     def select(self, css_selector: str):
         return self.soup.select(css_selector)
     
