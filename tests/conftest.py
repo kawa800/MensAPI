@@ -38,10 +38,8 @@ def mock_with_test_date() -> Page:
 @pytest.fixture
 def schweineschnitzel_mock() -> Page:
     schweineschnitzel_html = Path("fixtures/html/schweineschnitzel.html").read_text(encoding="utf-8")
-
     mock_response = Mock(spec=requests.Response)
     mock_response.text = schweineschnitzel_html 
 
     page = Page("https://example.com", response=mock_response)
-
     return page 
