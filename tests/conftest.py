@@ -22,7 +22,7 @@ def iframes() -> list[Page]:
     return website.get_iframes(main_page)
 
 @pytest.fixture
-def mock_with_test_date() -> Mock:
+def mock_with_test_date() -> Page:
     fake_html = """
         <td>
         <h2>Menuplan</h2>
@@ -31,12 +31,17 @@ def mock_with_test_date() -> Mock:
     """
     mock_response = Mock(spec=requests.Response)
     mock_response.text = fake_html 
-    return mock_response
+    
+    page = Page("https://example.com", response=mock_response)
+    return page 
 
 @pytest.fixture
-def schweineschnitzel_mock() -> Mock:
-    schweineschnitzel_html = Path("tests/fixtures/html/schweineschnitzel.html").read_text(encoding="utf-8")
+def schweineschnitzel_mock() -> Page:
+    schweineschnitzel_html = Path("fixtures/html/schweineschnitzel.html").read_text(encoding="utf-8")
+
     mock_response = Mock(spec=requests.Response)
     mock_response.text = schweineschnitzel_html 
-    return mock_response
 
+    page = Page("https://example.com", response=mock_response)
+
+    return page 
