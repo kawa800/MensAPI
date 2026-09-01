@@ -21,6 +21,12 @@ def iframes() -> list[Page]:
     main_page = website.fetch("Index.html")
     return website.get_iframes(main_page)
 
+def _construct_mock(html: str) -> Page:
+    mock_response = Mock(spec=requests.Response)
+    mock_response.text = html 
+    page = Page("https://example.com", response=mock_response)
+    return page 
+    
 @pytest.fixture
 def mock_with_test_date() -> Page:
     fake_html = """
@@ -29,17 +35,14 @@ def mock_with_test_date() -> Page:
         <p>31.08.2026</p>
         </td>
     """
-    mock_response = Mock(spec=requests.Response)
-    mock_response.text = fake_html 
-    
-    page = Page("https://example.com", response=mock_response)
-    return page 
+    return _construct_mock(fake_html)
 
 @pytest.fixture
 def schweineschnitzel_mock() -> Page:
     schweineschnitzel_html = Path("fixtures/html/schweineschnitzel.html").read_text(encoding="utf-8")
-    mock_response = Mock(spec=requests.Response)
-    mock_response.text = schweineschnitzel_html 
+    return _construct_mock(schweineschnitzel_html)
 
-    page = Page("https://example.com", response=mock_response)
-    return page 
+@pytest.fixture
+def curryvurst_mock() -> Page:
+    curryvurst_html = Path("fixtures/html/curryvurst.html").read_text(encoding="utf-8")
+    return _construct_mock(schweineschnitzel_html)

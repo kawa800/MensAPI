@@ -1,0 +1,731 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+		<script>
+		<!-- check cookies for favorit when loading page -->
+		window.onload = function(){
+			if(checkFavorit('da7268e5-d37d-4320-b33d-12b8a5d1ac52')==true){
+			var element = document.getElementById("favoritbutton");
+			element.classList.add("markedAsFavorit");
+			}
+		}
+
+		<!-- navigation functions -->
+        function navigateForwards()
+		{
+			parent.navigate(1);
+		}
+		function navigateBackwards()
+		{
+			parent.navigate(-1);
+		}
+				
+		function goBack() {
+			window.history.back();
+		}
+		
+		<!-- cookie functions -->
+        function markAsFavorit(restaurantId, restaurantName, url){
+            var cookiename_restaurantid = window.location.origin+"_menuplan_favoritlocation_restaurantid";
+            var cookiename_restaurantname = window.location.origin+"_menuplan_favoritlocation_restaurantname";
+            var cookiename_url = window.location.origin+"_menuplan_favoritlocation_url";
+			
+			if(checkFavorit(restaurantId)==true){
+				document.cookie = cookiename_restaurantid+"= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+				document.cookie = cookiename_restaurantname+"= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+				document.cookie = cookiename_url+"= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+			}
+			else{
+				setCookie(cookiename_restaurantid,restaurantId,365);
+				setCookie(cookiename_restaurantname,restaurantName,365);
+				setCookie(cookiename_url,url,365);
+			}
+			location.reload();
+        }
+
+        function checkFavorit(restaurantId){
+            var cookiename = window.location.origin+"_menuplan_favoritlocation_restaurantid";
+            if(getCookie(cookiename) == restaurantId){
+                return true;
+            }
+            else{
+                return false;
+            }          
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname){
+             var name = cname + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var ca = decodedCookie.split(';');
+              for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+                }
+              }
+              return "";
+        }
+
+        function openLegend() {
+            window.open('legend.html', '_self');
+        }
+	</script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="ventopay gmbh">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" type="text/css" href="curryvurst_files/style.css">
+	<style>
+				html{
+			color: rgba(255,253,255,1.00);
+		}
+								.menuitem {
+			background: rgba(127,108,117,1.00);
+		}
+						html {
+            background: url('images/background.png') no-repeat center center fixed; 
+             -webkit-background-size: cover;
+             -moz-background-size: cover;
+             -o-background-size: cover;
+             background-size: cover;
+		}
+			</style>
+</head>
+<body>
+<div class="maindiv">
+	<div class="restaurantheaderblock">
+		<div class="aside aside-1">
+		   <button class="button" onclick="goBack()">&#10094; Zur Auswahl</button>
+		</div>
+		<div class="restaurantheaderitem">
+		   <p><span class="restaurantname">Universitätsmensa</span></p>
+		</div>
+		<div class="aside aside-2">
+                            <button id="legendbutton" class="button" onclick="openLegend()">Legende</button>
+	        		   <button id="favoritbutton" class="button markedAsFavorit" onclick="markAsFavorit('da7268e5-d37d-4320-b33d-12b8a5d1ac52','Universitätsmensa','3500/Speiseplan3500/index.html')">&#9733; Favorit</button>
+		</div>
+	</div>
+	<div class="headerblock">
+	<table>
+		<tbody><tr>
+			<td>
+				<button class="button" onclick="navigateBackwards()">&#10094;</button>
+			</td>
+			<td>
+				<h2>Dienstag</h2>
+				<p>01.09.2026</p>
+			</td>
+			<td>
+				<button class="button" onclick="navigateForwards()">&#10095;</button>
+			</td>
+		</tr>
+	</tbody></table>
+	</div>
+		<div class="menuitem">
+		<button class="accordion">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 1</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div>Fagottini-Nudeln mit Tomatenfüllung und Spinatcremesauce</div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+						<img class="allergenimage" src="curryvurst_files/8.png">
+							<img class="allergenimage" src="curryvurst_files/16.png">
+							<img class="allergenimage" src="curryvurst_files/19.png">
+							<img class="allergenimage" src="curryvurst_files/20.png">
+					</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">17,84 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">30,53 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">5,13 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">850,65 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">3569,38 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">120,62 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">7,59 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">7,25 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Fagottini-Nudeln mit Tomatenfüllung und Spinatcremesauce</td>
+			                <td>Studierende: 2,30 €                            </td>
+
+                            <td>Nicht Studierende : 4,50 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="curryvurst_files/8.png">
+			            				            <img class="allergenimage" src="curryvurst_files/16.png">
+			            				            <img class="allergenimage" src="curryvurst_files/19.png">
+			            				            <img class="allergenimage" src="curryvurst_files/20.png">
+			            		            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">850,65 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">3569,38 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">30,53 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">5,13 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">120,62 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">7,25 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">17,84 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">7,59 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+              
+	</div>	
+		<div class="menuitem">
+		<button class="accordion">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 2</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div>Plant based CurryVurst mit Pommes</div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+						<img class="allergenimage" src="curryvurst_files/17.png">
+					</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">17,04 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">67,63 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">11,59 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">1143,68 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">4801,19 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">112,11 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">5,84 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">28,91 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Plant based CurryVurst mit Pommes</td>
+			                <td>Studierende: 4,80 €                            </td>
+
+                            <td>Nicht Studierende : 6,80 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="curryvurst_files/17.png">
+			            		            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">1143,68 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">4801,19 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">67,63 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">11,59 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">112,11 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">28,91 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">17,04 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">5,84 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+              
+	</div>	
+		<div class="menuitem">
+		<button class="accordion">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 3</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div>Linseneintopf</div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+						<img class="allergenimage" src="curryvurst_files/15.png">
+							<img class="allergenimage" src="curryvurst_files/16.png">
+									<img class="allergenimage" src="curryvurst_files/5.png">
+							<img class="allergenimage" src="curryvurst_files/8_002.png">
+							<img class="allergenimage" src="curryvurst_files/28.png">
+			</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">18,87 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">14,72 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">1,54 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">444,59 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">1863,99 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">53,73 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">6,63 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">8,68 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Linseneintopf</td>
+			                <td>Studierende: 1,80 €                            </td>
+
+                            <td>Nicht Studierende : 3,40 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="curryvurst_files/15.png">
+			            				            <img class="allergenimage" src="curryvurst_files/16.png">
+			            		            				            <img class="allergenimage" src="curryvurst_files/5.png">
+			            				            <img class="allergenimage" src="curryvurst_files/8_002.png">
+			            				            <img class="allergenimage" src="curryvurst_files/28.png">
+			            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">444,59 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">1863,99 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">14,72 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">1,54 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">53,73 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">8,68 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">18,87 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">6,63 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+              
+	</div>	
+		<div class="menuitem">
+		<button class="accordion">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 4</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div></div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+				</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">0 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">0 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">0 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">0 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">0 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">0 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">0 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">0 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+              
+	</div>	
+		<div class="menuitem">
+		<div class="infocontainer">
+					<p><b>Öffnungszeiten:</b><br>
+			Verkaufszeiten Warme Küche 11:30-13:30 Uhr
+<br>
+<br>Wir arbeiten gerade noch an der optimalen Anzeige der Nährwerte. 
+Momentan befinden sich die Angaben in einer Testphase – es kann also 
+sein, dass noch nicht alles perfekt passt.
+<br>Danke für euer Verständnis und eure Geduld, während wir das Feature weiterentwickeln.</p>
+					<p><b>Ansprechpartner:</b><br>
+			Michael Abendroth
+<br>Gebäude 21.11
+<br>Universitätsstraße 1
+<br>40225 Düsseldorf
+<br>Tel. 0211 81-13321</p>
+				</div>
+	</div>
+	
+	<script>
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+		  acc[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var panel = this.nextElementSibling;
+			if (panel.style.maxHeight) {
+			  panel.style.maxHeight = null;
+			} else {
+			  panel.style.maxHeight = panel.scrollHeight + "px";
+			} 
+		  });
+		}
+	</script>
+
+
+
+</div></body></html>
