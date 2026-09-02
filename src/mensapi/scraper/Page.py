@@ -51,28 +51,40 @@ class Page:
 
     @property
     def nutrients(self) -> list[dict[str,float]]:
+        res = []
         values = []
-
-        nutrient_table = self.soup.find_all("table", class_="nutrienttable")
-        for tables in nutrient_table:
-            nutrient_values = tables.find_all("td", class_="nutrient_value")
-            for value in nutrient_values:
-                v = value.get_text().strip()
-                values.append(v)
-
         keys = [
-            "Protein:",
-            "Fat:",
-            "Saturated Fat:",
-            "kcal:",
-            "kJ:",
-            "Carbohydrates:",
-            "Salt:",
-            "Sugar:",
+            "Protein",
+            "Fat",
+            "Saturated Fat",
+            "kcal",
+            "kJ",
+            "Carbohydrates",
+            "Salt",
+            "Sugar",
         ]
+    
+        nutrient_table = self.soup.find_all("table", class_="nutrienttable")
 
-        res = dict(zip(keys, values))
-        
+        nutrient_values = []
+        for tables in nutrient_table[::2]:
+            # [start:stop:increment]
+            nutrient_values.append(tables.find_all("td", class_="nutrient_value"))
+
+        print(nutrient_values)
+        values = []
+        for nutrients in nutrient_values:
+            for value in nutrients:
+                v = value.get_text().strip()
+                v = v.replace(",",".")
+                v = float("".join([char for char in v if char.isdigit() or char == "."]))
+                if v:
+                    values.append(v)
+
+        for i in range(0, len(values), len(keys)):
+            chunk = values[i:i + len(keys)]
+            res.append(dict(zip(keys, chunk)))
+
         return res
 
     def select(self, css_selector: str):
