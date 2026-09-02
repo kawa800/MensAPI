@@ -7,6 +7,7 @@ from mensapi.scraper.Page import Page
 from mensapi.scraper.Website import Website 
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
+HTML_DIR = Path(__file__).parent / "fixtures" / "html"
 
 @pytest.fixture
 def main_page() -> Page:
@@ -39,10 +40,10 @@ def mock_with_test_date() -> Page:
 
 @pytest.fixture
 def schweineschnitzel_mock() -> Page:
-    schweineschnitzel_html = Path("fixtures/html/schweineschnitzel.html").read_text(encoding="utf-8")
+    schweineschnitzel_html = (HTML_DIR/ "schweineschnitzel.html").read_text(encoding="utf-8")
     return _construct_mock(schweineschnitzel_html)
 
 @pytest.fixture
 def curryvurst_mock() -> Page:
-    curryvurst_html = Path("fixtures/html/curryvurst.html").read_text(encoding="utf-8")
+    curryvurst_html = (HTML_DIR / "curryvurst.html").read_text(encoding="utf-8")
     return _construct_mock(curryvurst_html)

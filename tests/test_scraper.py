@@ -50,6 +50,11 @@ def test_meals_multiple_count(curryvurst_mock):
 def test_prices(curryvurst_mock):
     """ Return 2.30, 4.80 and 1.80 for the mock website curryvurst.html """
     page = curryvurst_mock
-    list_of_prices = page.prices
 
-    assert page.prices == [2.30, 4.80, 1.80]
+    expected_output =  [
+            {"Meal": "Fagottini-Nudeln mit Tomatenfüllung und Spinatcremesauce" , "Students": 2.30, "Non-Students": 4.50},
+            {"Meal": "Plant based CurryVurst mit Pommes" , "Students": 4.80, "Non-Students": 6.80},
+            {"Meal": "Linseneintopf" , "Students": 1.80, "Non-Students": 3.40}
+    ]
+
+    assert page.prices == expected_output 
