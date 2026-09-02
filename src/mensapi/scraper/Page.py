@@ -66,12 +66,11 @@ class Page:
     
         nutrient_table = self.soup.find_all("table", class_="nutrienttable")
 
+        # Only iterate over every second table, because the html doubles each nutritional table
         nutrient_values = []
         for tables in nutrient_table[::2]:
-            # [start:stop:increment]
             nutrient_values.append(tables.find_all("td", class_="nutrient_value"))
 
-        print(nutrient_values)
         values = []
         for nutrients in nutrient_values:
             for value in nutrients:
