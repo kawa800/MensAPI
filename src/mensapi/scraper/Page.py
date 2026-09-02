@@ -25,14 +25,55 @@ class Page:
         return date.get_text().strip() if date else None
 
     @property
-    def meals(self) -> str | None:
-        meals = []
-        meal1 = self.soup.find_all("div", class_="menuitem")
-        print(meal1)
+    def meals(self) -> list[str] | None:
+        res = []
+        meal_list = self.soup.find_all("div", class_="container")
+        for meal in meal_list:
+            meal  = meal.text.strip()
+            print(meal)
+            meal_cleaned = " mit ".join(meal.split("\n"))
+            if meal_cleaned:
+                res.append(meal_cleaned)
 
-        meals.append(meal1)
+        return res if res else None
 
-        return meals if meals else None
+    @property
+    def prices(self) -> list[dict[str, float]]:
+        res = []
+        meals = self.soup.find_all("table", class_="article-component-header")
+        for meal in meals:
+            prices_cells = meal.find_all("td")
+            meal_name = prices_cells[0].get_text().strip()
+            student_price = prices_cells[1].get_text().strip().split(" ")[1]
+            nonstudent_price = prices_cells[2].get_text().strip().split(" ")[3]
+            res.append({"Meal": meal_name, "Students": float(student_price.replace(",", ".")), "Non-Students": float(nonstudent_price.replace(",", "."))})
+        return res
+
+    @property
+    def nutrients(self) -> list[dict[str,float]]:
+        values = []
+
+        nutrient_table = self.soup.find_all("table", class_="nutrienttable")
+        for tables in nutrient_table:
+            nutrient_values = tables.find_all("td", class_="nutrient_value")
+            for value in nutrient_values:
+                v = value.get_text().strip()
+                values.append(v)
+
+        keys = [
+            "Protein:",
+            "Fat:",
+            "Saturated Fat:",
+            "kcal:",
+            "kJ:",
+            "Carbohydrates:",
+            "Salt:",
+            "Sugar:",
+        ]
+
+        res = dict(zip(keys, values))
+        
+        return res
 
     def select(self, css_selector: str):
         return self.soup.select(css_selector)

@@ -48,7 +48,7 @@ def test_meals_multiple_count(curryvurst_mock):
     assert len(page.meals) == 3
 
 def test_prices(curryvurst_mock):
-    """ Return 2.30, 4.80 and 1.80 for the mock website curryvurst.html """
+    """ Return prices of the mock page: 2.30, 4.80 and 1.80 """
     page = curryvurst_mock
 
     expected_output =  [
@@ -58,3 +58,8 @@ def test_prices(curryvurst_mock):
     ]
 
     assert page.prices == expected_output 
+
+def test_nutrients(curryvurst_mock, curryvurst_expected_nutrients):
+    """Return nutritional information for the mock page """
+    page = curryvurst_mock
+    assert page.nutrients == curryvurst_expected_nutrients
