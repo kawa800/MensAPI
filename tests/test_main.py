@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from mensapi.main import app
+from mensapi.api.main import app
 
 client = TestClient(app)
-
 
 def test_read_main():
     # Arrange

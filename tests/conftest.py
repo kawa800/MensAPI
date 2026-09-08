@@ -18,9 +18,12 @@ def main_page() -> Page:
 @pytest.fixture
 def iframes() -> list[Page]:
     """ Returns the iFrames embedded in the Studierendenwerk Mensa Website """
+    # I am just testing get_iframes
     website = Website(BASE_URL)
-    main_page = website.fetch("Index.html")
+    index_html = (HTML_DIR / "index.html").read_text(encoding="utf-8")
+    main_page = _construct_mock(index_html)
     return website.get_iframes(main_page)
+
 
 def _construct_mock(html: str) -> Page:
     mock_response = Mock(spec=requests.Response)

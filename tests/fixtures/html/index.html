@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="ventopay gmbh">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <script>
+    function setCookie(cname, cvalue, exdays) {
+          const d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          let expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        document.onload=loadCookies();
+
+    function getCookie(cname){
+             var name = cname + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var ca = decodedCookie.split(';');
+              for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+                }
+              }
+              return "";
+        }
+    function loadCookies()
+    {
+        var filterCookie = getCookie('filter');
+        if (filterCookie != "")
+        {
+            var filter = JSON.parse(filterCookie);
+            filterAllergenArray = filter;
+        }
+
+        bigFilterBtn = (getCookie('bigFilter') === 'true');
+    }
+
+	var cnt=0;
+        
+    function navigate(navcount)
+    {
+        var newIndex = cnt+navcount;
+        if(newIndex >= 6){
+            newIndex = 0;
+        }
+        else if(newIndex < 0){
+            newIndex = 6 -1;
+        }
+        if(newIndex != cnt && newIndex < 6 && newIndex >= 0){
+            var elCurrent = document.getElementById('frame_' + newIndex ); 
+            var elPrev = document.getElementById('frame_' + cnt); 
+       
+            elCurrent.setAttribute('style', 'position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;'); 
+            elPrev.setAttribute('style', 'display:none'); 
+            cnt = newIndex;
+        }
+
+    }
+		
+    function navigateTo(navcount)
+	{
+        let newIndex = parseInt(navcount);
+		if(newIndex >= 6){
+		    newIndex = 0;
+        }
+		else if(newIndex < 0){
+		    newIndex = 6 -1;
+        }
+        if(newIndex != cnt && newIndex < 6 && newIndex >= 0){
+            var elCurrent = document.getElementById('frame_' + newIndex ); 
+	        var elPrev = document.getElementById('frame_' + cnt); 
+       
+            elCurrent.setAttribute('style', 'position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;'); 
+            elPrev.setAttribute('style', 'display:none'); 
+            cnt = newIndex;
+        }
+
+	}
+	function toggleLanguageDiv(lang)
+	{
+        if (typeof parent.toggleLanguage === "function"){
+            parent.toggleLanguage(lang);
+        }
+       
+      var iFrames = document.getElementsByTagName("iframe");
+      
+      for(i=0; i < iFrames.length; i++)
+      {
+	      var engDiv = iFrames[i].contentWindow.document.getElementsByClassName("english")[0];
+	      var gerDiv = iFrames[i].contentWindow.document.getElementsByClassName("german")[0];
+          if (engDiv != null && gerDiv != null)
+          {
+	        if(lang == 'english')
+	        {
+	        	gerDiv.style.visibility = "hidden";
+	        	gerDiv.style.zIndex = "-1";
+	        	engDiv.style.visibility = "visible";
+	        	engDiv.style.zIndex = "500";
+	        }
+	        else
+	        {
+	          engDiv.style.visibility = "hidden";
+	        	engDiv.style.zIndex = "-1";
+	        	gerDiv.style.visibility = "visible";
+	        	gerDiv.style.zIndex = "500";
+	        }
+          }
+      }
+      setCookie('favLanguage', lang, 365);
+	}
+    var bigFilterBtn;
+    var filterAllergenArray = loadFilterArray();
+    function toggleBigFilterBtn()
+    {
+        bigFilterBtn = !bigFilterBtn;
+        // set all filterBtns the same
+        var iFrames = document.getElementsByTagName("iframe");      
+        for(var l=0; l < iFrames.length; l++)
+        {
+            var sliders = iFrames[l].contentWindow.document.getElementsByClassName('bigFilter');
+            for(var i =0; i < sliders.length; i++)
+            {
+                sliders[i].children[0].children[0].checked = bigFilterBtn;
+            }
+        }
+        reevaluateFilter();
+        setCookie('bigFilter', bigFilterBtn, 365);
+    }
+    function setIframeSettings(iframe)
+    {
+       if (filterAllergenArray != null)
+       {
+        reevaluateFilter();
+        for (var i = 0; i < filterAllergenArray.length; i++)
+        {
+            var sliders = iframe.contentWindow.document.getElementsByClassName(filterAllergenArray[i]);
+            for (var j = 0; j < sliders.length; j++)
+            {
+                sliders[j].checked = true;
+            }
+        }
+        var bigSliders = iframe.contentWindow.document.getElementsByClassName('bigFilter');
+        for(var i = 0; i < bigSliders.length; i++)
+        {
+            bigSliders[i].children[0].children[0].checked = bigFilterBtn;
+        }
+        toggleLanguageDiv(getCookie('favLanguage'));
+       }
+    }
+    function handleChange(slider)
+    {
+        var className = 'allergen_' + slider.id;
+        var iFrames = document.getElementsByTagName("iframe");
+        if (slider.checked)
+        {
+            filterAllergenArray.push(slider.id);
+        }
+        else
+        {
+           filterAllergenArray = filterAllergenArray.filter(function(ele){
+           return ele!=slider.id;
+           });
+        }
+        setCookie('filter', JSON.stringify(filterAllergenArray), 365);
+        for(var l=0; l < iFrames.length; l++)
+        {                
+            var allergenClasses = iFrames[l].contentWindow.document.getElementsByClassName(className);
+            for (var i = 0; i < allergenClasses.length; i++)
+            {
+                // style stuff
+                var allergens = allergenClasses[i].parentElement.parentElement.parentElement.parentElement.parentElement;                   
+                var interactions = allergens.nextElementSibling.children[0];
+                var icon = interactions.children[0];
+                var articleDetail = allergens.previousElementSibling;    
+
+                if (slider.checked)
+                {
+                    if (bigFilterBtn)
+                    {
+                        allergens.style.backgroundColor  = "#ddd";
+                        interactions.style.backgroundColor  = "#ddd";
+                        articleDetail.style.backgroundColor  = "#ddd";
+
+                        allergens.style.color  = "#c1c1c1";
+                        interactions.style.color  = "red";
+                        articleDetail.style.color  = "#c1c1c1";
+
+                        icon.classList.remove('fa-info-circle');
+                        icon.classList.add('fa-exclamation-triangle');
+                    }
+                }
+                else
+                {
+                    allergens.style.backgroundColor  = "white";
+                    interactions.style.backgroundColor  = "white";
+                    articleDetail.style.backgroundColor  = "white";
+
+                    allergens.style.color  = "var(--textcolor)";
+                    interactions.style.color  = "#908D8D";
+                    articleDetail.style.color  = "var(--textcolor)";
+                    reevaluateFilter();
+
+                    icon.classList.remove('fa-exclamation-triangle');
+                    icon.classList.add('fa-info-circle');
+                }
+            }
+            // make other sliders shift too
+            var sliders = iFrames[l].contentWindow.document.getElementsByClassName(slider.className);
+            for(var k = 0; k < sliders.length; k++)
+            {
+                 sliders[k].checked = slider.checked;
+            }
+        }
+    }
+    function loadFilterArray()
+    {
+        var filterCookie = getCookie('filter');
+        if (filterCookie != "")
+        {
+            return JSON.parse(filterCookie);
+        }
+        else
+        {
+            return [];
+        }
+    }
+    function reevaluateFilter()
+    {
+        for (var i = 0; i < filterAllergenArray.length; i++)
+        {
+            var className = 'allergen_' + filterAllergenArray[i];
+             var iFrames = document.getElementsByTagName("iframe");      
+                for(var l=0; l < iFrames.length; l++)
+                {                
+                    var allergenClasses = iFrames[l].contentWindow.document.getElementsByClassName(className);
+                    for (var j = 0; j < allergenClasses.length; j++)
+                    {
+                        var allergens = allergenClasses[j].parentElement.parentElement.parentElement.parentElement.parentElement;                   
+                        var interactions = allergens.nextElementSibling.children[0];
+                        var icon = interactions.children[0];
+                        var articleDetail = allergens.previousElementSibling;                    
+
+                        if (bigFilterBtn)
+                        {
+                            allergens.style.backgroundColor  = "#ddd";
+                            interactions.style.backgroundColor  = "#ddd";
+                            articleDetail.style.backgroundColor  = "#ddd";
+
+                            allergens.style.color  = "#c1c1c1";
+                            interactions.style.color  = "red";
+                            articleDetail.style.color  = "#c1c1c1";
+
+                            icon.classList.remove('fa-info-circle');
+                            icon.classList.add('fa-exclamation-triangle');
+                        }
+                        else
+                        {
+                            allergens.style.backgroundColor  = "white";
+                            interactions.style.backgroundColor  = "white";
+                            articleDetail.style.backgroundColor  = "white";
+
+                            allergens.style.color  = "var(--textcolor)";
+                            interactions.style.color  = "#908D8D";
+                            articleDetail.style.color  = "var(--textcolor)";
+
+                            icon.classList.remove('fa-exclamation-triangle');
+                            icon.classList.add('fa-info-circle');
+                        }
+                    }
+                }
+        }
+    }    
+</script>
+<title>Menüplan powered by ventopay gmbh</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+</head>
+  <body>
+<div id="iframeContainer" style="height: 100%; width: 100%">
+<iframe onload="setIframeSettings(this)" id="frame_0" frameborder="0" src="Site_0.html" style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:scroll; z-index:999999;"></iframe>
+<iframe onload="setIframeSettings(this)" id="frame_1" frameborder="0" src="Site_1.html" style="display:none"></iframe>
+<iframe onload="setIframeSettings(this)" id="frame_2" frameborder="0" src="Site_2.html" style="display:none"></iframe>
+<iframe onload="setIframeSettings(this)" id="frame_3" frameborder="0" src="Site_3.html" style="display:none"></iframe>
+<iframe onload="setIframeSettings(this)" id="frame_4" frameborder="0" src="Site_4.html" style="display:none"></iframe>
+<iframe onload="setIframeSettings(this)" id="frame_5" frameborder="0" src="Site_5.html" style="display:none"></iframe>
+</div>
+
+
+
+ 
+</body></html>

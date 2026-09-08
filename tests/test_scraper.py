@@ -1,6 +1,7 @@
 import pytest
 import requests
 from unittest.mock import Mock
+import datetime as dt
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
@@ -18,13 +19,13 @@ def test_fetch(main_page):
     assert "Speiseplan3500" in str(main_page)
 
 def test_get_iframes(iframes):
-    """ Fetch the Studierendenwerk Website and return seven iframes """
-    assert len(iframes) == 7
+    """ Fetch the Studierendenwerk Website from 08.09.2026 and check that it returns seven iframes """
+    assert len(iframes) == 6
 
 def test_day(iframes):
-    """ Sort and return Monday as the first day in the list """
+    """ Fetch the Studierendenwerk Website from 08.09.2026 and check that it returns Dienstag """
     iframe_first_day = iframes[0]
-    assert iframe_first_day.day == "Montag"
+    assert iframe_first_day.day == "Dienstag"
 
 def test_date(mock_with_test_date):
     """ Return the correct date """
