@@ -23,9 +23,9 @@ def test_get_iframes(iframes):
     assert len(iframes) == 6
 
 def test_day(iframes):
-    """ Fetch the Studierendenwerk Website from 08.09.2026 and check that it returns Dienstag """
+    """ Fetch the Studierendenwerk Website and check that the first sorted iframe returns Montag """
     iframe_first_day = iframes[0]
-    assert iframe_first_day.day == "Dienstag"
+    assert iframe_first_day.day == "Montag"
 
 def test_date(mock_with_test_date):
     """ Return the correct date """
@@ -53,9 +53,9 @@ def test_prices(curryvurst_mock):
     page = curryvurst_mock
 
     expected_output =  [
-            {"Meal": "Fagottini-Nudeln mit Tomatenfüllung und Spinatcremesauce" , "Students": 2.30, "Non-Students": 4.50},
-            {"Meal": "Plant based CurryVurst mit Pommes" , "Students": 4.80, "Non-Students": 6.80},
-            {"Meal": "Linseneintopf" , "Students": 1.80, "Non-Students": 3.40}
+            {"Students": 2.30, "Non-Students": 4.50},
+            {"Students": 4.80, "Non-Students": 6.80},
+            {"Students": 1.80, "Non-Students": 3.40}
     ]
 
     assert page.prices == expected_output 
@@ -64,3 +64,8 @@ def test_nutrients(curryvurst_mock, curryvurst_expected_nutrients):
     """Return nutritional information for the mock page """
     page = curryvurst_mock
     assert page.nutrients == curryvurst_expected_nutrients
+
+def test_diet(curryvurst_mock):
+    """ Return information of dishes being vegan or vegetarian"""
+    page = curryvurst_mock
+    assert page.diet == {"vegan" : True, "vegetarian": True}

@@ -30,7 +30,6 @@ class Page:
         meal_list = self.soup.find_all("div", class_="container")
         for meal in meal_list:
             meal  = meal.text.strip()
-            print(meal)
             meal_cleaned = " mit ".join(meal.split("\n"))
             if meal_cleaned:
                 res.append(meal_cleaned)
@@ -38,21 +37,18 @@ class Page:
         return res if res else None
 
     @property
-    def prices(self) -> list[dict[str, float]]:
+    def prices(self) -> list[dict[str, float | str]]:
         res = []
         meals = self.soup.find_all("table", class_="article-component-header")
         for meal in meals:
             prices_cells = meal.find_all("td")
-            meal_name = prices_cells[0].get_text().strip()
             student_price = prices_cells[1].get_text().strip().split(" ")[1]
             nonstudent_price = prices_cells[2].get_text().strip().split(" ")[3]
-            res.append({"Meal": meal_name, "Students": float(student_price.replace(",", ".")), "Non-Students": float(nonstudent_price.replace(",", "."))})
+            res.append({"Students": float(student_price.replace(",", ".")), "Non-Students": float(nonstudent_price.replace(",", "."))})
         return res
 
     @property
     def nutrients(self) -> list[dict[str,float]]:
-        res = []
-        values = []
         keys = [
             "Protein",
             "Fat",
@@ -66,7 +62,6 @@ class Page:
     
         nutrient_table = self.soup.find_all("table", class_="nutrienttable")
 
-        # Only iterate over every second table, because the html doubles each nutritional table
         nutrient_values = []
         for tables in nutrient_table[::2]:
             nutrient_values.append(tables.find_all("td", class_="nutrient_value"))
@@ -80,14 +75,23 @@ class Page:
                 if v:
                     values.append(v)
 
+
+
+        res = []
         for i in range(0, len(values), len(keys)):
-            chunk = values[i:i + len(keys)]
-            res.append(dict(zip(keys, chunk)))
+            slice = values[i:i + len(keys)]
+            res.append(dict(zip(keys, slice)))
 
         return res
+
+    @property
+    def complete_dishes(self) -> list[dict]:
+        pass
 
     def select(self, css_selector: str):
         return self.soup.select(css_selector)
     
     def __repr__(self):
         return f"url: {self.url}, status: {self.response.status_code}, title: {self.title}"
+
+

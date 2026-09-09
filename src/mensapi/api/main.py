@@ -15,3 +15,4 @@ async def root():
 @app.get("/meals")
 async def get_meals():
     return {"meal": "curry"}
+
