@@ -5,7 +5,7 @@ from pathlib import Path
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
-from mensapi.legend import resolve_additive, resolve_allergen
+from mensapi.scraper.legend import resolve_additive_or_allergen
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 HTML_DIR = Path(__file__).parent / "fixtures" / "html"
@@ -87,13 +87,33 @@ def curryvurst_expected_nutrients() -> list[dict[str,str]]:
     return expected_nutrients
 
 @pytest.fixture
-def curryvurst_expected_allergens() -> list[dict[str,str]]:
+def bolognese_mock() -> Page:
+    bolognese_html = (HTML_DIR/ "sauce_bolognese.html").read_text(encoding="utf-8")
+    return _construct_mock(bolognese_html)
+ 
+@pytest.fixture
+def bolognese_expected_allergens() -> list[dict[str,str]]:
     expected_allergens = [
         {
+            "allergen_id": "8",
+            "category": "allergens",
+            "name": resolve_additive_or_allergen("allergens", 8),
         },
         {
+            "allergen_id": "16",
+            "category": "allergens",
+            "name": resolve_additive_or_allergen("allergens", 16),
         },
         {
+            "allergen_id": "20",
+            "category": "allergens",
+            "name": resolve_additive_or_allergen("allergens", 20),
+        },
+        {
+            "allergen_id": "14",
+            "category": "additives",
+            "name": resolve_additive_or_allergen("additives", 14),
         },
     ]
-    return expected_allergens 
+    return expected_allergens
+

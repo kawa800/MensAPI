@@ -65,7 +65,9 @@ def test_nutrients(curryvurst_mock, curryvurst_expected_nutrients):
     page = curryvurst_mock
     assert page.nutrients == curryvurst_expected_nutrients
 
-def test_diet(curryvurst_mock):
-    """ Return information of dishes being vegan or vegetarian"""
-    page = curryvurst_mock
-    assert page.diet == {"vegan" : True, "vegetarian": True}
+def test_diet(bolognese_mock, bolognese_expected_allergens):
+    """ The first dish of the 10.09.2026 is Penne mit Sauce Bolognese and
+    it contains the allergens gluten, celery, wheat and the additive beef
+    """
+    page = bolognese_mock 
+    assert page.allergens_and_additives[:4] == bolognese_expected_allergens
