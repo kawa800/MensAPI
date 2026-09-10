@@ -1,0 +1,1140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<script>
+		<!-- check cookies for favorit when loading page -->
+		window.onload = function(){
+			if(checkFavorit('da7268e5-d37d-4320-b33d-12b8a5d1ac52')==true){
+			var element = document.getElementById("favoritbutton");
+			element.classList.add("markedAsFavorit");
+			}
+		}
+
+		<!-- navigation functions -->
+        function navigateForwards()
+		{
+			parent.navigate(1);
+		}
+		function navigateBackwards()
+		{
+			parent.navigate(-1);
+		}
+				
+		function goBack() {
+			window.history.back();
+		}
+		
+		<!-- cookie functions -->
+        function markAsFavorit(restaurantId, restaurantName, url){
+            var cookiename_restaurantid = window.location.origin+"_menuplan_favoritlocation_restaurantid";
+            var cookiename_restaurantname = window.location.origin+"_menuplan_favoritlocation_restaurantname";
+            var cookiename_url = window.location.origin+"_menuplan_favoritlocation_url";
+			
+			if(checkFavorit(restaurantId)==true){
+				document.cookie = cookiename_restaurantid+"= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+				document.cookie = cookiename_restaurantname+"= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+				document.cookie = cookiename_url+"= ; expires = Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+			}
+			else{
+				setCookie(cookiename_restaurantid,restaurantId,365);
+				setCookie(cookiename_restaurantname,restaurantName,365);
+				setCookie(cookiename_url,url,365);
+			}
+			location.reload();
+        }
+
+        function checkFavorit(restaurantId){
+            var cookiename = window.location.origin+"_menuplan_favoritlocation_restaurantid";
+            if(getCookie(cookiename) == restaurantId){
+                return true;
+            }
+            else{
+                return false;
+            }          
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname){
+             var name = cname + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var ca = decodedCookie.split(';');
+              for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+                }
+              }
+              return "";
+        }
+
+        function openLegend() {
+            window.open('legend.html', '_self');
+        }
+	</script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="ventopay gmbh">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" type="text/css" href="sauce_bolognese_files/style.css">
+	<style>
+				html{
+			color: rgba(255,253,255,1.00);
+		}
+								.menuitem {
+			background: rgba(127,108,117,1.00);
+		}
+						html {
+            background: url('images/background.png') no-repeat center center fixed; 
+             -webkit-background-size: cover;
+             -moz-background-size: cover;
+             -o-background-size: cover;
+             background-size: cover;
+		}
+			</style>
+</head>
+<body>
+<div class="maindiv">
+	<div class="restaurantheaderblock">
+		<div class="aside aside-1">
+		   <button class="button" onclick="goBack()">❮ Zur Auswahl</button>
+		</div>
+		<div class="restaurantheaderitem">
+		   <p><span class="restaurantname">Universitätsmensa</span></p>
+		</div>
+		<div class="aside aside-2">
+                            <button id="legendbutton" class="button" onclick="openLegend()">Legende</button>
+	        		   <button id="favoritbutton" class="button markedAsFavorit" onclick="markAsFavorit('da7268e5-d37d-4320-b33d-12b8a5d1ac52','Universitätsmensa','3500/Speiseplan3500/index.html')">★ Favorit</button>
+		</div>
+	</div>
+	<div class="headerblock">
+	<table>
+		<tbody><tr>
+			<td>
+				<button class="button" onclick="navigateBackwards()">❮</button>
+			</td>
+			<td>
+				<h2>Donnerstag</h2>
+				<p>10.09.2026</p>
+			</td>
+			<td>
+				<button class="button" onclick="navigateForwards()">❯</button>
+			</td>
+		</tr>
+	</tbody></table>
+	</div>
+		<div class="menuitem">
+		<button class="accordion active">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 1</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div>Penne mit Sauce Bolognese</div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel" style="max-height: 334px;">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+						<img class="allergenimage" src="images\allergens\8.png">
+							<img class="allergenimage" src="images\allergens\16.png">
+							<img class="allergenimage" src="images\allergens\20.png">
+									<img class="allergenimage" src="image\additives\14.png">
+			</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">26,4 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">25,53 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">6,42 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">734,85 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">3085,65 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">97,22 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">3,68 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">11,77 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Penne mit Sauce Bolognese</td>
+			                <td>Studierende: 2,40 €                            </td>
+
+                            <td>Nicht Studierende : 4,50 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="sauce_bolognese_files/8.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/16.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/20.png">
+			            		            				            <img class="allergenimage" src="sauce_bolognese_files/14.png">
+			            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">734,85 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">3085,65 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">25,53 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">6,42 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">97,22 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">11,77 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">26,4 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">3,68 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+              
+	</div>	
+		<div class="menuitem">
+		<button class="accordion active">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 2</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div>Plant based CurryVurst mit Pommes</div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel" style="max-height: 328px;">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+						<img class="allergenimage" src="images\allergens\17.png">
+					</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">17,02 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">67,65 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">11,59 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">1143,13 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">4799,12 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">112,23 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">5,79 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">29,07 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Plant based CurryVurst mit Pommes</td>
+			                <td>Studierende: 4,95 €                            </td>
+
+                            <td>Nicht Studierende : 6,95 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="sauce_bolognese_files/17_002.png">
+			            		            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">1143,13 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">4799,12 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">67,65 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">11,59 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">112,23 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">29,07 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">17,02 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">5,79 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+              
+	</div>	
+		<div class="menuitem">
+		<button class="accordion">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 3</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div>Linseneintopf
+Bockwurst
+Mettwurst
+Weizenbrötchen</div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+						<img class="allergenimage" src="images\allergens\7.png">
+							<img class="allergenimage" src="images\allergens\8.png">
+							<img class="allergenimage" src="images\allergens\12.png">
+							<img class="allergenimage" src="images\allergens\13.png">
+							<img class="allergenimage" src="images\allergens\15.png">
+							<img class="allergenimage" src="images\allergens\16.png">
+							<img class="allergenimage" src="images\allergens\19.png">
+							<img class="allergenimage" src="images\allergens\20.png">
+									<img class="allergenimage" src="images\additives\4.png">
+							<img class="allergenimage" src="images\additives\5.png">
+							<img class="allergenimage" src="images\additives\8_002.png">
+							<img class="allergenimage" src="images\additives\11.png">
+							<img class="allergenimage" src="images\additives\17.png">
+							<img class="allergenimage" src="images\additives\28.png">
+			</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">56,48 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">67,05 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">22,68 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">1205,39 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">5030,79 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">88,27 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">12,18 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">10,96 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+        
+                <button class="accordion active">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Linseneintopf</td>
+			                <td>Studierende: 1,80 €                            </td>
+
+                            <td>Nicht Studierende : 3,40 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel" style="max-height: 338px;">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="sauce_bolognese_files/15.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/16.png">
+			            		            				            <img class="allergenimage" src="sauce_bolognese_files/5.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/8_002.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/28.png">
+			            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">444,59 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">1863,99 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">14,58 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">1,47 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">53,73 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">8,68 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">18,86 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">6,63 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Bockwurst</td>
+			                <td>Studierende: 1,20 €                            </td>
+
+                            <td>Nicht Studierende : 1,50 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            		            				            <img class="allergenimage" src="sauce_bolognese_files/4.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/5.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/11.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/17.png">
+			            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">306 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">1265 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">28 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">11,8 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">1 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">0,8 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">12,3 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">2,1 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Mettwurst</td>
+			                <td>Studierende: 1,20 €                            </td>
+
+                            <td>Nicht Studierende : 1,50 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            		            				            <img class="allergenimage" src="sauce_bolognese_files/4.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/5.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/11.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/17.png">
+			            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">284 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">1178 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">23 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">9,2 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">0,5 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">0,5 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">20 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">2,4 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Weizenbrötchen</td>
+			                <td>Studierende: 0,60 €                            </td>
+
+                            <td>Nicht Studierende : 0,60 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="sauce_bolognese_files/7.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/8.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/12.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/13.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/19.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/20.png">
+			            		            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">170,8 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">723,8 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">1,47 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">0,21 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">33,04 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">0,98 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">5,32 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">1,05 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+              
+	</div>	
+		<div class="menuitem">
+		<button class="accordion active">
+           <table class="menuitemheader">
+                		        <tbody><tr class="articledetailnamerow">
+                    <td>DG Theke 4</td>
+			    </tr>
+			    <tr>
+			        <td>
+                        <div class="container">
+                                                        
+                            <div>Schweineschnitzel
+Paprikacremesauce</div>
+                        </div>  
+                    </td>
+                    <td>
+                                            </td>
+                    <td>
+                        			        </td>
+                    <td>
+			    </td></tr>
+		</tbody></table>
+        </button>
+		<div class="panel" style="max-height: 334px;">
+		<table>
+		<tbody><tr><td class="sectionheader">Allergene &amp; Zusatzstoffe</td></tr>
+		<tr><td>
+						<img class="allergenimage" src="images\allergens\8.png">
+							<img class="allergenimage" src="images\allergens\12.png">
+							<img class="allergenimage" src="images\allergens\16.png">
+							<img class="allergenimage" src="images\allergens\19.png">
+							<img class="allergenimage" src="images\allergens\20.png">
+									<img class="allergenimage" src="images\\4.png">
+			</td></tr>
+        		<tr><td class="sectionheader">Nährwerte</td></tr>
+        		<tr><td><table class="nutrienttable">
+		<colgroup>
+			<col class="column_Nutrient_Name">
+			<col class="column_Nutrient_Value">
+		</colgroup>
+
+					<tbody><tr>
+				<td class="nutrient_name">Eiweiß</td>
+				<td class="nutrient_value">34,07 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Fett</td>
+				<td class="nutrient_value">31,27 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">gesättigte Fettsäuren</td>
+				<td class="nutrient_value">5,95 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kcal</td>
+				<td class="nutrient_value">515,48 kcal</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">kJ</td>
+				<td class="nutrient_value">2150,53 kJ</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Kohlenhydrate</td>
+				<td class="nutrient_value">18,72 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Salz</td>
+				<td class="nutrient_value">3,36 g</td>
+			</tr>
+		
+					<tr>
+				<td class="nutrient_name">Zucker</td>
+				<td class="nutrient_value">4,9 g</td>
+			</tr>
+		
+		</tbody></table></td></tr>
+		</tbody></table>
+		</div>
+ 
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Schweineschnitzel</td>
+			                <td>Studierende: 2,80 €                            </td>
+
+                            <td>Nicht Studierende : 4,50 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="sauce_bolognese_files/8.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/12.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/20.png">
+			            		            				            <img class="allergenimage" src="sauce_bolognese_files/4.png">
+			            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">449,64 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">1872,72 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">27,36 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">4,95 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">12,42 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">1,26 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">32,94 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">2,16 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+        
+                <button class="accordion">
+                <table class="article-component-header">
+
+			            <tbody><tr>
+                            <td>Paprikacremesauce</td>
+			                <td>Studierende: 0,30 €                            </td>
+
+                            <td>Nicht Studierende : 0,40 €                            </td>
+
+			                <td>
+			                			                </td>
+			            </tr>
+                
+		        </tbody></table>
+                </button>
+
+                <div class="panel">
+		        <table class="components">
+		            <tbody><tr><td>
+		            				            <img class="allergenimage" src="sauce_bolognese_files/16.png">
+			            				            <img class="allergenimage" src="sauce_bolognese_files/19.png">
+			            		            </td></tr>
+
+                    		            <tr><td class="sectionheader">Nährwerte</td></tr>
+                    		            <tr><td><table class="nutrienttable">
+		            <colgroup>
+			            <col class="column_Nutrient_Name">
+			            <col class="column_Nutrient_Value">
+		            </colgroup>
+                
+		            			            <tbody><tr>
+				            <td class="nutrient_name">kcal</td>
+				            <td class="nutrient_value">65,84 kcal</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">kJ</td>
+				            <td class="nutrient_value">277,81 kJ</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Fett</td>
+				            <td class="nutrient_value">3,91 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">gesättigte Fettsäuren</td>
+				            <td class="nutrient_value">1 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Kohlenhydrate</td>
+				            <td class="nutrient_value">6,3 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Zucker</td>
+				            <td class="nutrient_value">3,64 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Eiweiß</td>
+				            <td class="nutrient_value">1,13 g</td>
+			            </tr>
+		
+		            			            <tr>
+				            <td class="nutrient_name">Salz</td>
+				            <td class="nutrient_value">1,2 g</td>
+			            </tr>
+		
+		            </tbody></table></td></tr>
+		        </tbody></table>
+		        </div>
+
+            
+              
+	</div>	
+		<div class="menuitem">
+		<div class="infocontainer">
+					<p><b>Öffnungszeiten:</b><br>
+			Verkaufszeiten Warme Küche 11:30-13:30 Uhr
+<br>
+<br>Wir arbeiten gerade noch an der optimalen Anzeige der Nährwerte. 
+Momentan befinden sich die Angaben in einer Testphase – es kann also 
+sein, dass noch nicht alles perfekt passt.
+<br>Danke für euer Verständnis und eure Geduld, während wir das Feature weiterentwickeln.</p>
+					<p><b>Ansprechpartner:</b><br>
+			Michael Abendroth
+<br>Gebäude 21.11
+<br>Universitätsstraße 1
+<br>40225 Düsseldorf
+<br>Tel. 0211 81-13321</p>
+				</div>
+	</div>
+	
+	<script>
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+		  acc[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var panel = this.nextElementSibling;
+			if (panel.style.maxHeight) {
+			  panel.style.maxHeight = null;
+			} else {
+			  panel.style.maxHeight = panel.scrollHeight + "px";
+			} 
+		  });
+		}
+	</script>
+
+
+
+</div></body></html>
