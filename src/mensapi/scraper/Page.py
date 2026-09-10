@@ -75,14 +75,16 @@ class Page:
                 if v:
                     values.append(v)
 
-
-
         res = []
         for i in range(0, len(values), len(keys)):
             slice = values[i:i + len(keys)]
             res.append(dict(zip(keys, slice)))
 
         return res
+
+    @property
+    def diet(self) -> list[dict[str,str]]:
+        pass
 
     @property
     def complete_dishes(self) -> list[dict]:
@@ -93,5 +95,3 @@ class Page:
     
     def __repr__(self):
         return f"url: {self.url}, status: {self.response.status_code}, title: {self.title}"
-
-

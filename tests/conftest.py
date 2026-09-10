@@ -5,6 +5,7 @@ from pathlib import Path
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
+from mensapi.legend import resolve_additive, resolve_allergen
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 HTML_DIR = Path(__file__).parent / "fixtures" / "html"
@@ -84,3 +85,15 @@ def curryvurst_expected_nutrients() -> list[dict[str,str]]:
         },
     ]
     return expected_nutrients
+
+@pytest.fixture
+def curryvurst_expected_allergens() -> list[dict[str,str]]:
+    expected_allergens = [
+        {
+        },
+        {
+        },
+        {
+        },
+    ]
+    return expected_allergens 
