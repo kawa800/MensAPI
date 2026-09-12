@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import re
 
 
+from mensapi.scraper.types import DailyMenu
 from mensapi.scraper.legend import resolve_additive_or_allergen
 
 class Page:
@@ -102,9 +103,24 @@ class Page:
         return image_names 
 
     @property
-    def complete_dishes(self) -> list[dict]:
+    def complete_dishes(self) -> DailyMenu:
+        meals = self.meals
+        prices = self.prices
+        nutrients = self.nutrients
+        allergens = self.allergens_and_additives
 
+        dishes = []
+        for i, name in enumerate(meals):
+            dishes.append({
+                "day": self.day,
+                "date": self.date,
+                "name": name, 
+                "price": prices[i],
+                "nutrients": nutrients[i],
+                "allergens": allergens, 
+            })
 
+        return dishes
 
 
     def select(self, css_selector: str):

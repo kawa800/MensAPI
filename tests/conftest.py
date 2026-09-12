@@ -7,6 +7,7 @@ from typing import TypedDict
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
 from mensapi.scraper.legend import resolve_additive_or_allergen
+from mensapi.scraper.types import DailyMenu
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 HTML_DIR = Path(__file__).parent / "fixtures" / "html"
@@ -121,82 +122,49 @@ def bolognese_expected_allergens() -> list[dict[str,str]]:
     ]
     return expected_allergens
 
-class Allergen(TypedDict):
-    allergen_id: str
-    category: str
-    name: str
-
-class Nutrition(TypedDict):
-    Protein: float
-    Fat: float
-    Saturated Fat: float
-    kcal: float
-    kJ: float
-    Carbohydrates: float
-    Salt: float
-    Sugar: float
-
-class Price(TypedDict):
-    Students: float
-    Non-Students: float
-
-class Dish(TypedDict):
-    meal: str
-    price: Price
-    nutrition: Nutrition
-    allergens: list[Allergen]
-
-class DailyMenu(TypedDict):
-    day: str
-    date: str
-    dishes: list[Dish]
-
 
 # result was generated
 @pytest.fixture
 def complete_dishes_bolognese() -> DailyMenu:
     result = {
-        "day": "Montag",
+        "day": "Donnerstag",
         "date": "10.09.2026",
-        "dishes": [
+        "name": "Penne mit Sauce Bolognese",
+        "price": {
+            "Students": 2.40,
+            "Non-Students": 4.50,
+        },
+        "nutrients": {
+            "Protein": 26.4,
+            "Fat": 25.53,
+            "Saturated Fat": 6.42,
+            "kcal": 734.85,
+            "kJ": 3085.65,
+            "Carbohydrates": 97.22,
+            "Salt": 3.68,
+            "Sugar": 11.77,
+        },
+        "allergens": [
             {
-                "meal": "Penne mit Sauce Bolognese",
-                "price": {
-                    "Students": 2.40,
-                    "Non-Students": 4.50,
-                },
-                "nutrition": {
-                    "Protein": 26.4,
-                    "Fat": 25.53,
-                    "Saturated Fat": 6.42,
-                    "kcal": 734.85,
-                    "kJ": 3085.65,
-                    "Carbohydrates": 97.22,
-                    "Salt": 3.68,
-                    "Sugar": 11.77,
-                },
-                "allergens": [
-                    {
-                        "allergen_id": "8",
-                        "category": "allergens",
-                        "name": "allergens:8",
-                    },
-                    {
-                        "allergen_id": "16",
-                        "category": "allergens",
-                        "name": "allergens:16",
-                    },
-                    {
-                        "allergen_id": "20",
-                        "category": "allergens",
-                        "name": "allergens:20",
-                    },
-                    {
-                        "allergen_id": "14",
-                        "category": "additives",
-                        "name": "additives:14",
-                    },
-                ],
+                "allergen_id": "8",
+                "category": "allergens",
+                "name": resolve_additive_or_allergen("allergens", 8),
             },
+            {
+                "allergen_id": "16",
+                "category": "allergens",
+                "name": resolve_additive_or_allergen("allergens", 16),
+            },
+            {
+                "allergen_id": "20",
+                "category": "allergens",
+                "name": resolve_additive_or_allergen("allergens", 20),
+            },
+            {
+                "allergen_id": "14",
+                "category": "additives",
+                "name": resolve_additive_or_allergen("additives", 14),
+            },
+        ],
     }
     return result
