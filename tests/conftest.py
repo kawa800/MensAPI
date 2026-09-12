@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import Mock
 import requests
 from pathlib import Path
+from typing import TypedDict
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
@@ -120,3 +121,82 @@ def bolognese_expected_allergens() -> list[dict[str,str]]:
     ]
     return expected_allergens
 
+class Allergen(TypedDict):
+    allergen_id: str
+    category: str
+    name: str
+
+class Nutrition(TypedDict):
+    Protein: float
+    Fat: float
+    Saturated Fat: float
+    kcal: float
+    kJ: float
+    Carbohydrates: float
+    Salt: float
+    Sugar: float
+
+class Price(TypedDict):
+    Students: float
+    Non-Students: float
+
+class Dish(TypedDict):
+    meal: str
+    price: Price
+    nutrition: Nutrition
+    allergens: list[Allergen]
+
+class DailyMenu(TypedDict):
+    day: str
+    date: str
+    dishes: list[Dish]
+
+
+# result was generated
+@pytest.fixture
+def complete_dishes_bolognese() -> DailyMenu:
+    result = {
+        "day": "Montag",
+        "date": "10.09.2026",
+        "dishes": [
+            {
+                "meal": "Penne mit Sauce Bolognese",
+                "price": {
+                    "Students": 2.40,
+                    "Non-Students": 4.50,
+                },
+                "nutrition": {
+                    "Protein": 26.4,
+                    "Fat": 25.53,
+                    "Saturated Fat": 6.42,
+                    "kcal": 734.85,
+                    "kJ": 3085.65,
+                    "Carbohydrates": 97.22,
+                    "Salt": 3.68,
+                    "Sugar": 11.77,
+                },
+                "allergens": [
+                    {
+                        "allergen_id": "8",
+                        "category": "allergens",
+                        "name": "allergens:8",
+                    },
+                    {
+                        "allergen_id": "16",
+                        "category": "allergens",
+                        "name": "allergens:16",
+                    },
+                    {
+                        "allergen_id": "20",
+                        "category": "allergens",
+                        "name": "allergens:20",
+                    },
+                    {
+                        "allergen_id": "14",
+                        "category": "additives",
+                        "name": "additives:14",
+                    },
+                ],
+            },
+    }
+    return result

@@ -25,7 +25,7 @@ class Page:
     
     @property
     def date(self) -> str | None: 
-        date = self.soup.find("h2")
+        date = self.soup.find("h2").find_next_sibling("p")
         return date.get_text().strip() if date else None
 
     @property
@@ -103,7 +103,9 @@ class Page:
 
     @property
     def complete_dishes(self) -> list[dict]:
-        pass
+
+
+
 
     def select(self, css_selector: str):
         return self.soup.select(css_selector)
