@@ -72,5 +72,10 @@ def test_diet(bolognese_mock, bolognese_expected_allergens):
     page = bolognese_mock 
     assert page.allergens_and_additives[:4] == bolognese_expected_allergens
 
+def test_complete_dishes(bolognese_mock):
+
+    pass
+
 def test_debug(main_page):
     print(repr(main_page))
+
