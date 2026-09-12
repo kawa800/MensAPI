@@ -1,6 +1,10 @@
 from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
+import re
+
+
+from mensapi.scraper.legend import resolve_additive_or_allergen
 
 class Page:
 
@@ -21,7 +25,7 @@ class Page:
     
     @property
     def date(self) -> str | None: 
-        date = self.soup.find("h2").find_next_sibling("p")
+        date = self.soup.find("h2")
         return date.get_text().strip() if date else None
 
     @property
@@ -83,8 +87,19 @@ class Page:
         return res
 
     @property
-    def diet(self) -> list[dict[str,str]]:
-        pass
+    def allergens_and_additives(self) -> list[dict[str,str]]:
+        image_names = []
+        for image in self.soup.select("td.sectionheader + td img, tr:has(td.sectionheader) + tr img"): 
+            src = image.get("src").replace("\\","/")
+            if src:
+                category, image_name = src.split("/")[1:]
+                allergen_id = image_name.split(".")[0]
+                image_names.append({
+                    "allergen_id": allergen_id,
+                    "category": category,
+                    "name": resolve_additive_or_allergen(category, int(allergen_id))
+                })
+        return image_names 
 
     @property
     def complete_dishes(self) -> list[dict]:
@@ -94,4 +109,5 @@ class Page:
         return self.soup.select(css_selector)
     
     def __repr__(self):
-        return f"url: {self.url}, status: {self.response.status_code}, title: {self.title}"
+        status = self.response.status_code if self.response else None
+        return f"Page(url={self.url!r}, status={self.response.status_code!r}, day={self.day!r}, date={self.date!r}, title={self.title!r}"

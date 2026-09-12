@@ -12,9 +12,12 @@ HTML_DIR = Path(__file__).parent / "fixtures" / "html"
 
 @pytest.fixture
 def main_page() -> Page:
-    """ Returns the Page object of the main Studierendenwerk Mensa Website"""
+    """ Returns the Page object of the main Studierendenwerk Mensa Website
+    Just fetching Index.html doesn't work, because Index.html doesn't contain the iframes, whose
+    values are needed to return values for the date and day properties of a Page """
+
     website = Website(BASE_URL)
-    return website.fetch("Index.html")
+    return website.fetch("Site_0.html")
 
 @pytest.fixture
 def iframes() -> list[Page]:

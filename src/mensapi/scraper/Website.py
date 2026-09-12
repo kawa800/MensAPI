@@ -22,12 +22,11 @@ class Website:
         page_day = page.day
         return Weekday[page_day]
 
-    def get_iframes(self, page: Page) -> list[Page]:
+    def get_iframes(self, index_page: Page) -> list[Page]:
         """ Find all iFrames on a page and fetch their src.
         Maintains natural order, returning iframe with Monday as first element in list """
-
         pages = []
-        for iframe in page.select("iframe"):
+        for iframe in index_page.select("iframe"):
             iframe_url = iframe.attrs['src']
             pages.append(self.fetch(iframe_url))
 
@@ -36,4 +35,4 @@ class Website:
         return sorted_pages 
         
     def __repr__(self):
-        return f"Website-URL: {self.base_url}"
+        return f"Website={self.base_url!r}"

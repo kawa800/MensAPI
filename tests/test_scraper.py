@@ -12,7 +12,7 @@ def test_website():
     # Arrange and Act
     website = Website(BASE_URL)
     # Assert
-    assert BASE_URL in str(website)
+    assert BASE_URL in repr(website)
 
 def test_fetch(main_page):
     """ Fetch returns a Page object containing domain and any subpaths """
@@ -71,3 +71,6 @@ def test_diet(bolognese_mock, bolognese_expected_allergens):
     """
     page = bolognese_mock 
     assert page.allergens_and_additives[:4] == bolognese_expected_allergens
+
+def test_debug(main_page):
+    print(repr(main_page))
