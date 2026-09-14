@@ -9,6 +9,7 @@ class Website:
         self.base_url = base_url
         self.session = requests.Session() # Keeps TCP connection open instead of multiple response.get(URL) requests
         self.parser = parser
+        self.iframes = []
 
     def fetch(self, url: str) -> Page:
         """ Fetch a single page """

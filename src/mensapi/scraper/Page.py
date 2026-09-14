@@ -89,18 +89,25 @@ class Page:
 
     @property
     def allergens_and_additives(self) -> list[dict[str,str]]:
-        image_names = []
-        for image in self.soup.select("td.sectionheader + td img, tr:has(td.sectionheader) + tr img"): 
-            src = image.get("src").replace("\\","/")
-            if src:
-                category, image_name = src.split("/")[1:]
-                allergen_id = image_name.split(".")[0]
-                image_names.append({
-                    "allergen_id": allergen_id,
-                    "category": category,
-                    "name": resolve_additive_or_allergen(category, int(allergen_id))
-                })
-        return image_names 
+        result = []
+        dishes = self.soup.find_all("div", class_="menuitem")
+
+        for dish in dishes: 
+            r = []
+            for image in dish.select("td.sectionheader + td img, tr:has(td.sectionheader) + tr img"): 
+                src = image.get("src").replace("\\","/")
+                if src:
+                    category, image_name = src.split("/")[1:]
+                    allergen_id = image_name.split(".")[0]
+                    r.append({
+                        "allergen_id": allergen_id,
+                        "category": category,
+                        "name": resolve_additive_or_allergen(category, int(allergen_id))
+                    })
+
+            result.append(r)
+
+        return result
 
     @property
     def complete_dishes(self) -> DailyMenu:
@@ -117,7 +124,7 @@ class Page:
                 "name": name, 
                 "price": prices[i],
                 "nutrients": nutrients[i],
-                "allergens": allergens, 
+                "allergens": allergens[i], 
             })
 
         return dishes
