@@ -10,6 +10,7 @@ from mensapi.scraper.legend import resolve_additive_or_allergen
 class Page:
 
     def __init__(self, url: str, response: requests.Response, parser: str = "html.parser"):
+        """ Page requires a Response to be instantiated, because """
         self.url = url
         self.response = response
         self.soup = BeautifulSoup(response.text, parser)
@@ -117,15 +118,16 @@ class Page:
         allergens = self.allergens_and_additives
 
         dishes = []
-        for i, name in enumerate(meals):
-            dishes.append({
-                "day": self.day,
-                "date": self.date,
-                "name": name, 
-                "price": prices[i],
-                "nutrients": nutrients[i],
-                "allergens": allergens[i], 
-            })
+        if meals:
+            for i, name in enumerate(meals):
+                dishes.append({
+                    "day": self.day,
+                    "date": self.date,
+                    "name": name, 
+                    "price": prices[i],
+                    "nutrients": nutrients[i],
+                    "allergens": allergens[i], 
+                })
 
         return dishes
 

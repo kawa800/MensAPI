@@ -5,11 +5,14 @@ from mensapi.scraper.weekday import Weekday
 
 class Website:
 
+
     def __init__(self, base_url: str, parser: str="html.parser"):
         self.base_url = base_url
         self.session = requests.Session() # Keeps TCP connection open instead of multiple response.get(URL) requests
         self.parser = parser
-        self.iframes = []
+
+        MENSA_INDEX_PAGE = self.fetch("Index.html")
+        self.iframes = self.get_iframes(MENSA_INDEX_PAGE)
 
     def fetch(self, url: str) -> Page:
         """ Fetch a single page """
@@ -29,11 +32,23 @@ class Website:
         pages = []
         for iframe in index_page.select("iframe"):
             iframe_url = iframe.attrs['src']
-            pages.append(self.fetch(iframe_url))
+            page = self.fetch(iframe_url)
+            pages.append(page)
 
         sorted_pages = sorted(pages, key=self._order_by_week)
 
         return sorted_pages 
+
+
+    @property
+    def weekly_menu(self):
+        result = []
+        for page in self.iframes:
+            for dish in page.complete_dishes:
+                result.append(dish)
+            
+        print(result)
+        return result
         
     def __repr__(self):
         return f"Website={self.base_url!r}"

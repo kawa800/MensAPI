@@ -76,3 +76,7 @@ def test_diet(bolognese_mock, bolognese_expected_allergens):
 def test_complete_dishes(bolognese_mock, complete_dishes_bolognese):
     page = bolognese_mock
     assert page.complete_dishes[0] == complete_dishes_bolognese 
+
+def test_web():
+    website = Website(BASE_URL)
+    assert website.weekly_menu == 0
