@@ -13,7 +13,7 @@ class Page:
         """ Page requires a Response to be instantiated, because """
         self.url = url
         self.response = response
-        self.soup = BeautifulSoup(response.text, parser)
+        self.soup = BeautifulSoup(response.content, parser)
 
     @property
     def title(self) -> str | None:
