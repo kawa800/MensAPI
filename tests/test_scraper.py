@@ -70,7 +70,8 @@ def test_diet(bolognese_mock, bolognese_expected_allergens):
     it contains the allergens gluten, celery, wheat and the additive beef
     """
     page = bolognese_mock 
-    assert page.allergens_and_additives[:4] == bolognese_expected_allergens
+    page_first_dish = page.allergens_and_additives[0]
+    assert page_first_dish == bolognese_expected_allergens
 
 def test_complete_dishes(bolognese_mock, complete_dishes_bolognese):
     page = bolognese_mock
