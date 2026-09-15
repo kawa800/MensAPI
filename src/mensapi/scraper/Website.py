@@ -32,12 +32,12 @@ class Website:
         pages = []
         for iframe in index_page.select("iframe"):
             iframe_url = iframe.attrs['src']
-            page = self.fetch(iframe_url)
+            page = self.fetch(iframe_url) # Real network-call
             pages.append(page)
 
         sorted_pages = sorted(pages, key=self._order_by_week)
 
-        return sorted_pages 
+        return sorted_pages
 
 
     @property

@@ -20,12 +20,19 @@ def test_fetch(main_page):
 
 def test_get_iframes(iframes):
     """ Fetch the Studierendenwerk Website from 08.09.2026 and check that it returns seven iframes """
-    assert len(iframes) == 6
+    assert len(iframes) == 7
 
 def test_day(iframes):
     """ Fetch the Studierendenwerk Website and check that the first sorted iframe returns Montag """
-    iframe_first_day = iframes[0]
-    assert iframe_first_day.day == "Montag"
+    iframe_first_day = iframes
+    # sorting doesn't work for iframes fixture
+    assert iframe_first_day[0].day == "Montag"
+
+def test_regression_sorting_bug(iframes):
+    iframes = iframes
+    website = Website(BASE_URL)
+    real_iframes = website.get_iframes(website.fetch("Index.html"))
+    assert iframes[0].day == real_iframes[0].day
 
 def test_date(mock_with_test_date):
     """ Return the correct date """
