@@ -47,7 +47,6 @@ class Website:
             for dish in page.complete_dishes:
                 result.append(dish)
             
-        print(result)
         return result
         
     def __repr__(self):

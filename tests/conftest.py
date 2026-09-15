@@ -31,7 +31,7 @@ def iframes() -> list[Page]:
 
 def _construct_mock(html: str) -> Page:
     mock_response = Mock(spec=requests.Response)
-    mock_response.text = html 
+    mock_response.content = html 
     page = Page("https://example.com", response=mock_response)
     return page 
     
