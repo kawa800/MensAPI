@@ -29,3 +29,6 @@ class DailyMenu(TypedDict):
     day: str
     date: str
     dishes: list[Dish]
+
+class FakeTag(TypedDict):
+    attrs: dict[str,str] 

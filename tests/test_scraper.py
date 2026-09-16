@@ -5,7 +5,7 @@ import datetime as dt
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
-from tests.conftest import BASE_URL
+from tests.conftest import BASE_URL, FakePage
 
 def test_website():
     """ Instantiating a Website returns an object with the same base_url as instance variable """
@@ -28,7 +28,9 @@ def test_day(iframes):
     # sorting doesn't work for iframes fixture
     assert iframe_first_day[0].day == "Montag"
 
-def test_regression_sorting_bug(iframes):
+
+@pytest.mark.regression
+def test_sorting_bug(iframes):
     iframes = iframes
     website = Website(BASE_URL)
     real_iframes = website.get_iframes(website.fetch("Index.html"))
@@ -84,6 +86,8 @@ def test_complete_dishes(bolognese_mock, complete_dishes_bolognese):
     page = bolognese_mock
     assert page.complete_dishes[0] == complete_dishes_bolognese 
 
-def test_web():
+def test_fetch(fake_fetch):
     website = Website(BASE_URL)
-    assert website.weekly_menu == 0
+    iframe_days = [frame.day for frame in website.iframes] 
+    print(iframe_days)
+    assert iframe_days == ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]

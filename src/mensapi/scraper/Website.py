@@ -12,7 +12,7 @@ class Website:
         self.parser = parser
 
         MENSA_INDEX_PAGE = self.fetch("Index.html")
-        self.iframes = self.get_iframes(MENSA_INDEX_PAGE)
+        self.iframes = self.get_iframes(MENSA_INDEX_PAGE) or []
 
     def fetch(self, url: str) -> Page:
         """ Fetch a single page """
@@ -31,7 +31,7 @@ class Website:
         Maintains natural order, returning iframe with Monday as first element in list """
         pages = []
         for iframe in index_page.select("iframe"):
-            iframe_url = iframe.attrs['src']
+            iframe_url = iframe.attrs["src"]
             page = self.fetch(iframe_url) # Real network-call
             pages.append(page)
 
