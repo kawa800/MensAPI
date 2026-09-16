@@ -7,26 +7,16 @@ from typing import TypedDict
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
 from mensapi.scraper.legend import resolve_additive_or_allergen
-from mensapi.scraper.types import DailyMenu, FakeTag
+from mensapi.scraper.types import DailyMenu
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 HTML_DIR = Path(__file__).parent / "fixtures" / "html"
 
 @pytest.fixture
-def main_page() -> Page:
-    """ Returns the Page object of the main Studierendenwerk Mensa Website
-    Just fetching Index.html doesn't work, because Index.html doesn't contain the iframes, whose
-    values are needed to return values for the date and day properties of a Page """
-    website = Website(BASE_URL)
-    return website.fetch("Site_0.html")
-
-@pytest.fixture
 def iframes() -> list[Page]:
     """ Returns the iFrames embedded in the Studierendenwerk Mensa Website on the 08.09.2026 """
-    website = Website(BASE_URL)
-    index_html = (HTML_DIR / "index.html").read_text(encoding="utf-8")
-    main_page = _construct_mock(index_html)
-    return website.get_iframes(main_page)
+    website = Website.from_mensa_url(BASE_URL)
+    return website.iframes
 
 def _construct_mock(html: str) -> Page:
     mock_response = Mock(spec=requests.Response)
@@ -166,44 +156,3 @@ def complete_dishes_bolognese() -> DailyMenu:
         ],
     }
     return result
-
-class FakePage: 
-    """ Minimal stand in for a page that returns the days of the week """
-
-    def __init__(self, day: str, srcs: list[str]=None):
-        self.day = day
-        self.srcs = srcs
-
-    def select(self, selector: str="iframe") -> list[FakeTag]:
-        return [FakeTag(src) for src in self.srcs]
-
-    def day(self) -> str | None:
-        return self.day
-
-class FakeTag:
-    
-    def __init__(self, attrs: str):
-        self.attrs = {"src": attrs}
-
-
-@pytest.fixture
-def fake_fetch(monkeypatch) -> FakePage:
-    """ 
-    Patches Website.fetch to return FakePage objects keyed by URL, instead of hitting the network
-    """
-    pages = {
-        "Index.html": FakePage(day=None, srcs=["Freitag", "Samstag", "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag"]),
-        "Freitag": FakePage(day="Freitag"),
-        "Samstag": FakePage(day="Samstag"),
-        "Sonntag": FakePage(day="Sonntag"),
-        "Montag": FakePage(day="Montag"),
-        "Dienstag": FakePage(day="Dienstag"),
-        "Mittwoch": FakePage(day="Mittwoch"),
-        "Donnerstag": FakePage(day="Donnerstag")
-    }
-
-    def _fake_fetch(self, url: str):
-        return pages[url]
-
-    monkeypatch.setattr(Website, "fetch", _fake_fetch)
-    return pages

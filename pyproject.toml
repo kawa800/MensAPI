@@ -29,7 +29,9 @@ build-backend = "uv_build"
 
 [pytest]
 pythonpath= ["src"]
-markers = ["regression: mark a test as a regression-test."]
+
+[tool.pytest.ini_options]
+markers = "regression: mark a test as a regression-test."
 
 [dependency-groups]
 dev = [

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import requests
 from urllib.parse import urljoin
 from mensapi.scraper.Page import Page
@@ -6,39 +8,52 @@ from mensapi.scraper.weekday import Weekday
 class Website:
 
 
-    def __init__(self, base_url: str, parser: str="html.parser"):
+    def __init__(self, base_url: str, iframes: list[Page], parser: str="html.parser"):
+        self.iframes = iframes
         self.base_url = base_url
-        self.session = requests.Session() # Keeps TCP connection open instead of multiple response.get(URL) requests
+        # self.session = requests.Session() # Keeps TCP connection open instead of multiple response.get(URL) requests
         self.parser = parser
 
-        MENSA_INDEX_PAGE = self.fetch("Index.html")
-        self.iframes = self.get_iframes(MENSA_INDEX_PAGE) or []
+        # MENSA_INDEX_PAGE = self.fetch("Index.html")
+        # self.iframes = self.get_iframes(MENSA_INDEX_PAGE) or []
 
-    def fetch(self, url: str) -> Page:
-        """ Fetch a single page """
-        full_url = urljoin(self.base_url, url)
-        response = self.session.get(full_url)
-        response.raise_for_status() # Raise HTTPError if connection fails
-        return Page(full_url, response, parser=self.parser)
+    @classmethod
+    def from_mensa_url(cls, base_url: str, parser: str="html.parser") -> Website:
+        """ Makes a real GET-Request to the Website of Studierendenwerk """
+        session = requests.Session() # Keeps TCP connection open instead of multiple response.get(URL) requests
+
+        def fetch(url: str) -> Page:
+            full_url = urljoin(base_url, url)
+            response = session.get(full_url)
+            response.raise_for_status() # Raise HTTPError if connection fails
+            return Page(full_url, response, parser=parser)
+
+        index_page = fetch("Index.html")
+        iframes = cls._get_iframes(index_page, fetch)
+
+        return cls(base_url, iframes, parser)
+
+
+        mensa_index_page = self.fetch("Index.html")
+        iframes = self.get_iframes(mensa_index_page)
+        return cls(base_url, iframes, parser)
+        
 
     @staticmethod
     def _order_by_week(page: Page): 
         page_day = page.day
         return Weekday[page_day]
 
-    def get_iframes(self, index_page: Page) -> list[Page]:
+    @staticmethod
+    def _get_iframes(index_page: Page, fetch) -> list[Page]:
         """ Find all iFrames on a page and fetch their src.
         Maintains natural order, returning iframe with Monday as first element in list """
         pages = []
         for iframe in index_page.select("iframe"):
             iframe_url = iframe.attrs["src"]
-            page = self.fetch(iframe_url) # Real network-call
+            page = fetch(iframe_url) # Real network-call
             pages.append(page)
-
-        sorted_pages = sorted(pages, key=self._order_by_week)
-
-        return sorted_pages
-
+        return sorted(pages, key=Website._order_by_week)
 
     @property
     def weekly_menu(self):

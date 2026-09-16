@@ -5,12 +5,12 @@ import datetime as dt
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
-from tests.conftest import BASE_URL, FakePage
+from tests.conftest import BASE_URL
 
 def test_website():
     """ Instantiating a Website returns an object with the same base_url as instance variable """
     # Arrange and Act
-    website = Website(BASE_URL)
+    website = Website.from_mensa_url(BASE_URL)
     # Assert
     assert BASE_URL in repr(website)
 
@@ -32,8 +32,8 @@ def test_day(iframes):
 @pytest.mark.regression
 def test_sorting_bug(iframes):
     iframes = iframes
-    website = Website(BASE_URL)
-    real_iframes = website.get_iframes(website.fetch("Index.html"))
+    website = Website.from_mensa_url(BASE_URL)
+    real_iframes = website.iframes
     assert iframes[0].day == real_iframes[0].day
 
 def test_date(mock_with_test_date):
@@ -86,8 +86,12 @@ def test_complete_dishes(bolognese_mock, complete_dishes_bolognese):
     page = bolognese_mock
     assert page.complete_dishes[0] == complete_dishes_bolognese 
 
-def test_fetch(fake_fetch):
-    website = Website(BASE_URL)
+    """ What did I want to test? """
+def test_fetch():
+    website = Website.from_mensa_url(BASE_URL)
     iframe_days = [frame.day for frame in website.iframes] 
-    print(iframe_days)
     assert iframe_days == ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+
+def test_factory():
+    website = Website.from_mensa_url(base_url=BASE_URL)
+    assert website.iframes[0].day == "Montag" 
