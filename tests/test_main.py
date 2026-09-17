@@ -9,3 +9,17 @@ def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Hello World"}
+#
+# def test_today():
+#     # Arrange
+#     response = client.get("api/today")
+#     assert response.json() = {
+#
+#
+#         # I want to mock today to always point toward the same day
+#         # Then write up the json that is supposed to be returned
+#         # Then test
+#
+#
+#
+#     }

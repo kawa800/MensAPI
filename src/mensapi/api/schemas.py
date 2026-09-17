@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Dish(pydantic.BaseModel):
+class Dish(BaseModel):
     name: str
     price: dict[str,float]
     nutrients: dict[str,float]
@@ -39,12 +39,12 @@ class Dish(pydantic.BaseModel):
     }
 
 
-class DailyMenu(pydantic.BaseModel):
+class DailyMenu(BaseModel):
     day: str
     date: str
     name: list[Dish] 
 
 
-class WeeklyMenu(pydantic.BaseModel):
+class WeeklyMenu(BaseModel):
     days: list[DailyMenu]
 

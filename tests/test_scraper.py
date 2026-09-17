@@ -28,7 +28,6 @@ def test_day(iframes):
     # sorting doesn't work for iframes fixture
     assert iframe_first_day[0].day == "Montag"
 
-
 @pytest.mark.regression
 def test_sorting_bug(iframes):
     iframes = iframes
@@ -84,6 +83,7 @@ def test_diet(bolognese_mock, bolognese_expected_allergens):
 
 def test_complete_dishes(bolognese_mock, complete_dishes_bolognese):
     page = bolognese_mock
+    page.complete_dishes[0]
     assert page.complete_dishes[0] == complete_dishes_bolognese 
 
     """ What did I want to test? """
