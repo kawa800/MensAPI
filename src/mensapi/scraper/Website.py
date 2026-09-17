@@ -34,10 +34,18 @@ class Website:
         return cls(base_url, iframes, parser)
 
 
-        mensa_index_page = self.fetch("Index.html")
-        iframes = self.get_iframes(mensa_index_page)
+    @classmethod
+    def from_html_dir(cls, base_url: str, directory: Path, parser: str = "html.parser") -> "Website":
+        """ Read pages from local HTML files instead of the network """
+        def fetch(url: str) -> Page:
+            file_path = directory / url
+            html = file_path.read_text()
+            return Page(url, html, parser=parser)
+
+        index_page = fetch("Index.html")
+        iframes = cls._get_iframes(index_page, fetch)
         return cls(base_url, iframes, parser)
-        
+            
 
     @staticmethod
     def _order_by_week(page: Page): 
