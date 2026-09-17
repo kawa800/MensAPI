@@ -91,22 +91,22 @@ def bolognese_expected_allergens() -> list[dict[str,str]]:
         {
             "allergen_id": "8",
             "category": "allergens",
-            "name": resolve_additive_or_allergen("allergens", 8),
+            "name": "gluten",
         },
         {
             "allergen_id": "16",
             "category": "allergens",
-            "name": resolve_additive_or_allergen("allergens", 16),
+            "name": "celery", 
         },
         {
             "allergen_id": "20",
             "category": "allergens",
-            "name": resolve_additive_or_allergen("allergens", 20),
+            "name": "wheat",
         },
         {
             "allergen_id": "14",
             "category": "additives",
-            "name": resolve_additive_or_allergen("additives", 14),
+            "name": "beef",
         },
     ]
     return expected_allergens
@@ -136,7 +136,7 @@ def complete_dishes_bolognese() -> DailyMenu:
             {
                 "allergen_id": "8",
                 "category": "allergens",
-                "name": resolve_additive_or_allergen("allergens", 8),
+                "name": resolve_additive_or_allergen("allergens", 8), 
             },
             {
                 "allergen_id": "16",
