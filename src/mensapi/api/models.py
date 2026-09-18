@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone, timedelta
 from database import Base
 
-from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy import DateTime, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 UTC_TWO = timezone(timedelta(hours=2))
@@ -11,17 +11,53 @@ UTC_TWO = timezone(timedelta(hours=2))
 class Dish(Base):
     __tablename__ = "dishes"
 
-    # Meal
     id: Mapped[int] = mapped_column(primary_key=True)
     day: Mapped[str] = mapped_column(String(20), nullable=False)
     date: Mapped[datetime] = mapped_column(DateTime(timezone=True), default= lambda: datetime.now(UTC_TWO))
     name: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    # Price
+    nutrients: Mapped[Nutrients] = relationship(
+        back_populates="dish",
+        cascade="all, delete"
+    )
+
+    prices: Mapped[Prices] = relationship(
+        back_populates="dish",
+        cascade="all, delete"
+    )
+
+    allergens: Mapped[list[Allergens]] = relationship( # Allows for dish.allergens to return all allergens
+        back_populates="dish",
+        cascade="all, delete"
+    ) 
+
+
+class Prices(Base): 
+    __tablename__ = "prices"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    dish_id: Mapped[int] = mapped_column(
+            ForeignKey("dishes.id"), 
+            nullable=False,
+            index=True,
+            unique=True
+    )
+
     price_students: Mapped[float] = mapped_column(Float)
     price_non_students: Mapped[float] = mapped_column(Float)
 
-    # Nutrients
+    dish: Mapped[Dish] = relationship(back_populates="prices")
+    
+
+class Nutrients(Base):
+    __tablename__ = "nutrients"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    dish_id: Mapped[int] = mapped_column(
+            ForeignKey("dishes.id"), 
+            nullable=False,
+            index=True,
+            unique=True # Because one dish has one set of nutrients
+    )
+
     protein: Mapped[float] = mapped_column(Float, nullable=False)
     fat: Mapped[float] = mapped_column(Float, nullable=False)
     saturated_fat: Mapped[float] = mapped_column(Float, nullable=False)
@@ -31,13 +67,10 @@ class Dish(Base):
     salt: Mapped[float] = mapped_column(Float, nullable=False)
     sugar: Mapped[float] = mapped_column(Float, nullable=False)
 
-    # Allergens
-    allergens: Mapped[list[Allergen]] = relationship(
-        back_populates="dish",
-        cascade="all, delete"
-    )
+    dish: Mapped[Dish] = relationship(back_populates="nutrients")
 
-class Allergen(Base):
+
+class Allergens(Base):
     __tablename__ = "allergens"
 
     id: Mapped[int] = mapped_column(primary_key=True)
