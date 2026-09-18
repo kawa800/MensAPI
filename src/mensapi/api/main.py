@@ -1,52 +1,19 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
+from datetime import datetime
 
-from mensapi.api.schemas import Dish, DailyMenu, WeeklyMenu
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+import mensapi.api.models
+
+from mensapi.api.schemas import DishResponse, PricesResponse, NutrientsResponse 
+
+from typing import Annotated
 
 app = FastAPI()
 
 async def get_bolognese(q: str | None = None, skip: int = 0, limit: int = 100):
-    expected_response = {
-        "day": "Donnerstag",
-        "date": "10.09.2026",
-        "name": "Penne mit Sauce Bolognese",
-        "price": {
-            "Students": 2.40,
-            "Non-Students": 4.50,
-        },
-        "nutrients": {
-            "Protein": 26.4,
-            "Fat": 25.53,
-            "Saturated Fat": 6.42,
-            "kcal": 734.85,
-            "kJ": 3085.65,
-            "Carbohydrates": 97.22,
-            "Salt": 3.68,
-            "Sugar": 11.77,
-        },
-        "allergens": [
-            {
-                "allergen_id": "8",
-                "category": "allergens",
-                "name": "gluten", 
-            },
-            {
-                "allergen_id": "16",
-                "category": "allergens",
-                "name": "celery",
-            },
-            {
-                "allergen_id": "20",
-                "category": "allergens",
-                "name": "wheat",
-            },
-            {
-                "allergen_id": "14",
-                "category": "additives",
-                "name": "beef",
-            },
-        ],
-    }
     return expected_response
 
 
@@ -54,15 +21,24 @@ async def get_bolognese(q: str | None = None, skip: int = 0, limit: int = 100):
 async def root():
     return {"message": "Hello World"}
 
-@app.get("/api/today", response_model=DailyMenu) 
-async def get_daily_menu() -> DailyMenu:
-    return DailyMenu
 
-@app.get("/api/{weekday}", response_model=DailyMenu)
+@app.get("/api/today", response_model=DishResponse) 
+async def get_daily_menu() -> DishResponse:
+    result = db.execute(
+        select(models.Dish).where(models.User.date == datetime.now().date())
+    )
+    todays_dish = result.scalars().first()
+    
+    if todays_dish:
+        return todays_dish
+
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Today's dish not found.")
+
+
+@app.get("/api/{weekday}", response_model=DishResponse)
 async def get_weekday_menu(weekday: str):
     pass
 
-@app.get("/api/week", response_model=WeeklyMenu)
+@app.get("/api/week", response_model=list[DishResponse])
 async def get_weekly_menu():
     pass
-
