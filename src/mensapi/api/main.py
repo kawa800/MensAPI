@@ -14,6 +14,9 @@ from typing import Annotated
 
 
 app = FastAPI()
+# Dependency Injection
+SessionDep = Annotated[Session, Depends(get_db)]
+
 
 @app.get("/")
 async def root():
@@ -21,7 +24,7 @@ async def root():
 
 
 @app.get("/api/today", response_model=list[DishResponse]) 
-async def get_daily_menu(db: Annotated[Session, Depends(get_db)]) -> list[DishResponse]:
+async def get_daily_menu(db: SessionDep) -> list[DishResponse]:
     weekday = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
     current_day_index = dt.datetime.now().weekday()
     query_result = db.execute(select(models.Dish).where(models.Dish.day == weekday[current_day_index]))
@@ -29,16 +32,25 @@ async def get_daily_menu(db: Annotated[Session, Depends(get_db)]) -> list[DishRe
     if dish:
         return dish
     else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Today's dish not found.")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Today's dishes not found.")
 
 
-@app.get("/api/{weekday}", response_model=DishResponse)
-async def get_weekday_menu(weekday: str, db: Annotated[Session, Depends(get_db)]) -> DishResponse: 
-    dish = db.get(DishResponse, weekday)
-    if not dish:
-        raise HTTPException(status_code=404, detail="Dish not found")
-    return dish
+@app.get("/api/week", response_model=list[DishResponse])
+async def get_weekly_menu(db: SessionDep) -> list[DishResponse]:
+    result = db.execute(select(models.Dish))
+    dishes = result.scalars().all()
+    if dishes:
+        return dishes
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Weekly dishes not found.")
 
-# @app.get("/api/week", response_model=)
-# async def get_weekly_menu():
-#     pass
+
+        # Read Queryparameter
+# @app.get("/api/{weekday}", response_model=DishResponse)
+# async def get_weekday_menu(weekday: str, db: Annotated[Session, Depends(get_db)]) -> DishResponse: 
+#     dish = db.get(models.Dish, weekday)
+#     if not dish:
+#         raise HTTPException(status_code=404, detail="Dish not found")
+#     return dish
+
+
