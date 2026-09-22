@@ -1,57 +1,12 @@
 # Define what data the API can expose. Pydantic then validates that the data matches the definitions.
-<<<<<<< HEAD
 from __future__ import annotations
 from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-expected_response = {
-    "day": "Donnerstag",
-    "date": "10.09.2026",
-    "name": "Orientalischer Linseneintopf mit Kokosmilch",
-    "prices": {
-        "Students": 1.80,
-        "Non-Students": 3.40,
-    },
-    "nutrients": {
-        "Protein": 26.4,
-        "Fat": 25.53,
-        "Saturated Fat": 6.42,
-        "kcal": 734.85,
-        "kJ": 3085.65,
-        "Carbohydrates": 97.22,
-        "Salt": 3.68,
-        "Sugar": 11.77,
-    },
-    "allergens": [
-        {
-            "allergen_id": "8",
-            "category": "allergens",
-            "name": "gluten", 
-        },
-        {
-            "allergen_id": "16",
-            "category": "allergens",
-            "name": "celery",
-        },
-        {
-            "allergen_id": "20",
-            "category": "allergens",
-            "name": "wheat",
-        },
-        {
-            "allergen_id": "14",
-            "category": "additives",
-            "name": "beef",
-        },
-    ],
-}
-
-
 class DishResponse(BaseModel):
     model_config = ConfigDict(
         from_attributes=True, # allow returning ORM-models
-        json_schema_extra={ "example": expected_response } # display expected JSON output in OpenAPI docs
     )
 
     id: int = Field(examples=[1])
@@ -68,23 +23,6 @@ class PricesResponse(BaseModel):
 
     price_students: float = Field(examples=[1.80])
     price_non_students: float = Field(examples=[3.40])
-
-from datetime import datetime
-
-from pydantic import BaseModel, ConfigDict, Field
-
-
-class DishResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True) # allow reading from objects using dot-notation
-
-    id: int
-    day: str
-    date: datetime
-    name: str
-
-    nutrients: NutrientsResponse
-    prices: PricesResponse
-    allergens: list[AllergensResponse]
 
 class NutrientsResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True) # allow reading from objects using dot-notation
