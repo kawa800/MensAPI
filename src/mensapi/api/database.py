@@ -20,6 +20,3 @@ class Base(DeclarativeBase):
 def get_db():
     with SessionLocal() as db:
         yield db
-
-# Ensure the tables in SQLAlchemy are created
-Base.metadata.create_all(bind=engine)

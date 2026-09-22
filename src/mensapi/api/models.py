@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from mensapi.api.database import Base
 
-from sqlalchemy import DateTime, Float, ForeignKey, Integer, String, Text
+from sqlalchemy import Date, DateTime, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 UTC_TWO = timezone(timedelta(hours=2))
@@ -13,7 +13,7 @@ class Dish(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     day: Mapped[str] = mapped_column(String(20), nullable=False)
-    date: Mapped[datetime] = mapped_column(DateTime(timezone=True), default= lambda: datetime.now(UTC_TWO))
+    date: Mapped[datetime] = mapped_column(Date, default= lambda: datetime.now(UTC_TWO).date())
     name: Mapped[str] = mapped_column(String(255), nullable=False)
 
     nutrients: Mapped[Nutrients] = relationship(

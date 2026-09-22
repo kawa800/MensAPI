@@ -1,6 +1,7 @@
 # Define what data the API can expose. Pydantic then validates that the data matches the definitions.
 from __future__ import annotations
 from datetime import datetime
+from datetime import date as dateformat
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -11,7 +12,7 @@ class DishResponse(BaseModel):
 
     id: int = Field(examples=[1])
     day: str = Field(examples=["Donnerstag"])
-    date: datetime = Field(examples=["18.09.2026"])
+    date: dateformat = Field(examples=["2026-09-2026"])
     name: str = Field(examples=["Orientalischer Linseneintopf"])
 
     nutrients: NutrientsResponse
