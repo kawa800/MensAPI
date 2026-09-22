@@ -1,4 +1,5 @@
 # Define what data the API can expose. Pydantic then validates that the data matches the definitions.
+<<<<<<< HEAD
 from __future__ import annotations
 from datetime import datetime
 
@@ -67,6 +68,23 @@ class PricesResponse(BaseModel):
 
     price_students: float = Field(examples=[1.80])
     price_non_students: float = Field(examples=[3.40])
+=======
+from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict, Field
+
+
+class DishResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True) # allow reading from objects using dot-notation
+
+    id: int
+    day: str
+    date: datetime
+    name: str
+
+    nutrients: NutrientsResponse
+    prices: PricesResponse
+    allergens: list[AllergensResponse]
 
 class NutrientsResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True) # allow reading from objects using dot-notation
