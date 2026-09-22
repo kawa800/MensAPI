@@ -2,19 +2,20 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.request import urlopen 
 from urllib.parse import urljoin
+
 from mensapi.scraper.Website import Website
+from mensapi.scraper.commit_data import commit_data 
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 
 def main():
-    website = Website(BASE_URL)
-    print(website)
+    website = Website.from_mensa_url(BASE_URL)
+    scraped_meals = website.weekly_menu
+    print(scraped_meals)
 
-    main_page = website.fetch("Index.html")
-
-    i = 0
-    for iframe in website.get_iframes(main_page):
-        print(iframe.day)
+    if scraped_meals:
+        commit_data(scraped_meals)
+    
 
 if __name__ == "__main__":
     main()

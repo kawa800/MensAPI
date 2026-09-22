@@ -68,7 +68,7 @@ class PricesResponse(BaseModel):
 
     price_students: float = Field(examples=[1.80])
     price_non_students: float = Field(examples=[3.40])
-=======
+
 from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field

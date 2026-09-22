@@ -4,6 +4,7 @@ import requests
 from urllib.parse import urljoin
 from mensapi.scraper.Page import Page
 from mensapi.scraper.weekday import Weekday
+from mensapi.scraper.types import DailyMenu
 
 class Website:
 
@@ -64,12 +65,13 @@ class Website:
         return sorted(pages, key=Website._order_by_week)
 
     @property
-    def weekly_menu(self):
+    def weekly_menu(self) -> list[DailyMenu]:
         result = []
-        for page in self.iframes:
-            for dish in page.complete_dishes:
-                result.append(dish)
-            
+        if self.iframes:
+            for page in self.iframes:
+                for dish in page.complete_dishes:
+                    result.append(dish)
+
         return result
         
     def __repr__(self):

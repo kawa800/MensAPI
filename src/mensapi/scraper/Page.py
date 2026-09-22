@@ -2,7 +2,7 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 import re
-
+import datetime as dt
 
 from mensapi.scraper.types import DailyMenu
 from mensapi.scraper.legend import resolve_additive_or_allergen
@@ -26,9 +26,11 @@ class Page:
         return day.get_text().strip() if day else None
     
     @property
-    def date(self) -> str | None: 
-        date = self.soup.find("h2").find_next_sibling("p")
-        return date.get_text().strip() if date else None
+    def date(self) -> dt.datetime | None: 
+        date = self.soup.find("h2").find_next_sibling("p").text
+        format = "%d.%m.%Y"
+        res = dt.datetime.strptime(date, format)
+        return res if res else None
 
     @property
     def meals(self) -> list[str] | None:

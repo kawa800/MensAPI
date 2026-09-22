@@ -1,10 +1,12 @@
+from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./mensa.db"
+BASE_DIR = Path(__file__).resolve().parent
+DB_PATH = BASE_DIR / "mensa.db"
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
+    f"sqlite:///{DB_PATH}",
     connect_args={"check_same_thread": False},
 )
 
@@ -18,3 +20,6 @@ class Base(DeclarativeBase):
 def get_db():
     with SessionLocal() as db:
         yield db
+
+# Ensure the tables in SQLAlchemy are created
+Base.metadata.create_all(bind=engine)
