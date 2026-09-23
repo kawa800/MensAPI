@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 import mensapi.api.models as models
 
+from mensapi.api.docs.examples import WEEKLY_MENU_EXAMPLE
 from mensapi.api.schemas import DishResponse, PricesResponse, NutrientsResponse
 from mensapi.api.database import Base, engine, get_db
 
@@ -26,7 +27,7 @@ OFFSET = {
 
 @app.get("/")
 async def root():
-    return {"message": "Oli"}
+    return {"message": "Oliebe"}
 
 
 @app.get("/api/today", response_model=list[DishResponse]) 
@@ -40,6 +41,7 @@ async def get_daily_menu(db: SessionDep) -> list[DishResponse]:
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Today's dishes not found.")
 
+
 @app.get("/api/dish/{id}", response_model=list[DishResponse])
 async def get_dish_by_id(id: int, db: SessionDep) -> list[DishResponse]:
     result = db.execute(select(models.Dish).where(models.Dish.id == id))
@@ -50,7 +52,7 @@ async def get_dish_by_id(id: int, db: SessionDep) -> list[DishResponse]:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dish not found.")
 
 
-@app.get("/api/week", response_model=list[DishResponse])
+@app.get("/api/week", response_model=list[DishResponse], responses= {200: {"content": {"application/json": {"example": WEEKLY_MENU_EXAMPLE}}}})
 async def get_weekly_menu(db: SessionDep) -> list[DishResponse]:
     result = db.execute(select(models.Dish))
     dishes = result.scalars().all()
