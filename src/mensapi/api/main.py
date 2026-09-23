@@ -16,11 +16,17 @@ from typing import Annotated
 app = FastAPI()
 # Dependency Injection
 SessionDep = Annotated[Session, Depends(get_db)]
+# Week offsets in German for /api/week/{day} endpoint
+OFFSET = {
+            "montag": 0, "dienstag": 1, "mittwoch": 2, "donnerstag": 3, "freitag": 4, "samstag": 5, "sonntag": 6,
+            "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3, "friday": 4, "saturday": 5, "sunday": 6
+         }
+
 
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Oli"}
 
 
 @app.get("/api/today", response_model=list[DishResponse]) 
@@ -34,14 +40,14 @@ async def get_daily_menu(db: SessionDep) -> list[DishResponse]:
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Today's dishes not found.")
 
-
-@app.get("/api/{day}", response_model=DishResponse)
-async def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -> DishResponse: 
-    pass
-    # dish = db.get(models.Dish, weekday)
-    # if not dish:
-    #     raise HTTPException(status_code=404, detail="Dish not found")
-    # return dish
+@app.get("/api/dish/{id}", response_model=list[DishResponse])
+async def get_dish_by_id(id: int, db: SessionDep) -> list[DishResponse]:
+    result = db.execute(select(models.Dish).where(models.Dish.id == id))
+    dishes = result.scalars().all()
+    if dishes:
+        return dishes
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dish not found.")
 
 
 @app.get("/api/week", response_model=list[DishResponse])
@@ -54,9 +60,23 @@ async def get_weekly_menu(db: SessionDep) -> list[DishResponse]:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Weekly dishes not found.")
 
 
-@app.get("/api/dish/{id}", response_model=list[DishResponse])
-async def get_dish_by_id(id: int, db: SessionDep) -> list[DishResponse]:
-    result = db.execute(select(models.Dish).where(models.Dish.id == id))
+@app.get("/api/week/{day}", response_model=list[DishResponse])
+async def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -> list[DishResponse]: 
+    day_lower = day.lower()
+    if day_lower not in OFFSET:
+        raise HTTPException(
+            status_code=status.HTTP_404_BAD_REQUEST,
+            detail=f"Invalid day {day}. Use in the format: /api/week/montag or /api/week/monday."
+        )
+
+    today = dt.datetime.today()
+    start_of_week = today - dt.timedelta(days=today.weekday())
+
+    offset = OFFSET[day_lower]
+    target_day = start_of_week + dt.timedelta(days=offset)
+    print(target_day)
+
+    result = db.execute(select(models.Dish).where(models.Dish.date == target_day.date()))
     dishes = result.scalars().all()
     if dishes:
         return dishes
