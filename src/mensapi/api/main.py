@@ -24,7 +24,6 @@ OFFSET = {
          }
 
 
-
 @app.get("/")
 async def root():
 
@@ -66,7 +65,6 @@ async def get_weekly_menu(db: SessionDep) -> list[DishResponse]:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Weekly dishes not found.")
 
 
-
 @app.get("/api/week/{day}", response_model=list[DishResponse])
 async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -> list[DishResponse]: 
     """ Get the Daily Menu of day in the current week. """
@@ -94,8 +92,13 @@ async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -
 
 
 @app.get("/api/week", response_model=list[DishResponse])
-async def get_weekly_menu(db: SessionDep, start: dt.date = Query(example="2026-09-21"), end: dt.date = Query(example="2026-09-24")) -> list[DishResponse]:
+async def get_weekly_menu(db: SessionDep, start: dt.date = Query(examples=["2026-09-21"]), end: dt.date = Query(examples=["2026-09-24"])) -> list[DishResponse]:
     """ Get the Daily Menu of days in the range of start_date to inclusive end_date. """
+    if start > end:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="The query parameter 'start' must be before or equal to 'end'.",
+        )
     result = db.execute(select(models.Dish).where(models.Dish.date.between(start, end)))
     dishes = result.scalars().all()
     if dishes:

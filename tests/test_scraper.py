@@ -38,7 +38,7 @@ def test_sorting_bug(iframes):
 def test_date(mock_with_test_date):
     """ Return the correct date """
     page = mock_with_test_date
-    assert page.date == "31.08.2026"
+    assert str(page.date.date()) == "2026-08-31"
 
 def test_meals_single_count(schweineschnitzel_mock):
     """ Return one meal if the website contains one meal """

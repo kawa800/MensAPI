@@ -1,9 +1,8 @@
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from sqlalchemy import StaticPool, create_engine
-from sqlalchemy.orm import sessionmaker
 
 from mensapi.api.main import app
+from tests.conftest import TestingSessionLocal
 
 client = TestClient(app)
 
@@ -19,6 +18,7 @@ def test_week_start_after_end_date():
     assert response.json() == {"detail":"The query parameter 'start' must be before or equal to 'end'."}
 
 
+# Gives a certain menu in the fake database
 def test_week_current():
     response = client.get("/api/week/current")
     assert response.status_code == 200

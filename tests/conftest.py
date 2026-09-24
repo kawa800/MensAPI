@@ -3,14 +3,47 @@ from unittest.mock import Mock
 import requests
 from pathlib import Path
 from typing import TypedDict
+from sqlalchemy import StaticPool, create_engine
+from sqlalchemy.orm import sessionmaker
+import datetime as dt
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
 from mensapi.scraper.legend import resolve_additive_or_allergen
 from mensapi.scraper.types import DailyMenu
+from mensapi.api.main import app, Base, get_db
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 HTML_DIR = Path(__file__).parent / "fixtures" / "html"
+
+# Set up fake database
+DATABASE_URL = "sqlite:///:memory:"
+
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={
+        "check_same_thread": False
+    },
+    poolclass=StaticPool,
+)
+
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def override_get_db():
+    db = TestingSessionLocal()
+    try: 
+        yield db
+    finally:
+        db.close()
+
+app.dependency_overrides[get_db] = override_get_db
+
+@pytest.fixture(autouse=True)
+def db_setup():
+    Base.metadata.create_all(bind=engine)
+    yield # The test runs
+    Base.metadata.drop_all(bind=engine)
+
 
 @pytest.fixture
 def iframes() -> list[Page]:
@@ -116,7 +149,7 @@ def bolognese_expected_allergens() -> list[dict[str,str]]:
 def complete_dishes_bolognese() -> DailyMenu:
     result = {
         "day": "Donnerstag",
-        "date": "10.09.2026",
+        "date": dt.datetime(2026, 9, 10, 0, 0),
         "name": "Penne mit Sauce Bolognese",
         "price": {
             "Students": 2.40,
