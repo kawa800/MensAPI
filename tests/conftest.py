@@ -7,11 +7,14 @@ from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import sessionmaker
 import datetime as dt
 
+from fastapi.testclient import TestClient
+
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
 from mensapi.scraper.legend import resolve_additive_or_allergen
 from mensapi.scraper.types import DailyMenu
 from mensapi.api.main import app, Base, get_db
+from mensapi.api.models import Allergens, Dish, Nutrients, Prices
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 HTML_DIR = Path(__file__).parent / "fixtures" / "html"
@@ -24,7 +27,7 @@ engine = create_engine(
     connect_args={
         "check_same_thread": False
     },
-    poolclass=StaticPool,
+    poolclass=StaticPool, # Always connect the same in memory database
 )
 
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -38,11 +41,47 @@ def override_get_db():
 
 app.dependency_overrides[get_db] = override_get_db
 
-@pytest.fixture(autouse=True)
-def db_setup():
+@pytest.fixture(scope="session")
+def db_engine():
     Base.metadata.create_all(bind=engine)
-    yield # The test runs
+    yield engine
     Base.metadata.drop_all(bind=engine)
+
+
+@pytest.fixture
+def db_session(db_engine):
+    # Create test items
+    with engine.connect() as conn:
+        transaction = conn.begin()
+        session = TestingSessionLocal(bind=conn)
+        yield session
+        session.close()
+        transaction.rollback()
+
+
+@pytest.fixture
+def db_current_dish_oli(db_session):
+    dish = Dish(
+        id=1 ,
+        day="Donnerstag",
+        date=dt.datetime.now(),
+        name="Orientalischer Linseneintopf mit Kokonusmilch",
+        nutrients=Nutrients(
+            protein=26.4, fat=25.53, saturated_fat=6.42, kcal=542.0,
+            kJ=849.1, carbohydrates=101, salt=8.5, sugar=3.2
+        ),
+        prices=Prices(price_students=1.8, price_non_students=3.5),
+        allergens=[Allergens(allergen_id=22, category="allergens", name="celery")],
+    )
+    db_session.add(dish)
+    db_session.commit()
+    db_session.refresh(dish)
+
+    yield dish
+
+@pytest.fixture
+def client():
+    return TestClient(app)
 
 
 @pytest.fixture
