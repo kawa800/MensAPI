@@ -102,10 +102,16 @@ class Page:
                 if src:
                     category, image_name = src.split("/")[1:]
                     allergen_id = image_name.split(".")[0]
+                    name = resolve_additive_or_allergen(category, int(allergen_id))
+
+                    if name is None:
+                        raise ValueError(f"Name resolution failed for: {dish}")
+
+
                     r.append({
                         "allergen_id": allergen_id,
                         "category": category,
-                        "name": resolve_additive_or_allergen(category, int(allergen_id))
+                        "name": name
                     })
 
             result.append(r)
