@@ -15,6 +15,25 @@ class Page:
         self.response = response
         self.soup = BeautifulSoup(response.content, parser)
 
+
+    @property
+    def containers(self) -> list[str]:
+        """
+        A container is the parent that contains all the information needed to parse a dish, as well as excess information.
+        It is made up of: button.accordion (contains meal name, prices) and sibling div.panel (contains nutrients, allergens).
+        """
+        # filter
+        node = self.soup.find_all("button", class_="accordion")
+        res = []
+        for n in node:
+            component = n.find("table", class_="article-component-header")
+            if component:
+                res.append(n)
+                res.append(n.find_next_sibling("div", class_="panel"))
+
+        return res
+        
+
     @property
     def title(self) -> str | None:
         tag = self.soup.select_one("title")
@@ -31,6 +50,23 @@ class Page:
         format = "%d.%m.%Y"
         res = dt.datetime.strptime(date, format)
         return res if res else None
+
+    @property
+    def meal_name(self) -> list[str] | None:
+        res = []
+        meal_list = self.soup.find_all("button", class_="accordion")
+        for meal in meal_list:
+            first_td = meal.find("td")
+            if first_td:
+                res.append(first_td.text)
+            # for name in names:
+            #     meal  = name.text.strip()
+            #     meal_cleaned = " ".join(meal.split("\n"))
+            #     if meal_cleaned:
+            #         res.append(meal_cleaned)
+
+        return res if res else None
+
 
     @property
     def meals(self) -> list[str] | None:

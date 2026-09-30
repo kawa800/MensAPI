@@ -12,11 +12,8 @@ class Website:
     def __init__(self, base_url: str, iframes: list[Page], parser: str="html.parser"):
         self.iframes = iframes
         self.base_url = base_url
-        # self.session = requests.Session() # Keeps TCP connection open instead of multiple response.get(URL) requests
         self.parser = parser
 
-        # MENSA_INDEX_PAGE = self.fetch("Index.html")
-        # self.iframes = self.get_iframes(MENSA_INDEX_PAGE) or []
 
     @classmethod
     def from_mensa_url(cls, base_url: str, parser: str="html.parser") -> Website:
@@ -53,6 +50,7 @@ class Website:
         page_day = page.day
         return Weekday[page_day]
 
+
     @staticmethod
     def _get_iframes(index_page: Page, fetch) -> list[Page]:
         """ Find all iFrames on a page and fetch their src.
@@ -64,6 +62,7 @@ class Website:
             pages.append(page)
         return sorted(pages, key=Website._order_by_week)
 
+
     @property
     def weekly_menu(self) -> list[DailyMenu]:
         result = []
@@ -74,5 +73,6 @@ class Website:
 
         return result
         
+
     def __repr__(self):
         return f"Website={self.base_url!r}"
