@@ -1,347 +1,370 @@
 
-
-
-Kokos-Curry mit Hähnchenbruststreifen
-Studierende: 2,00 €                            
-Nicht Studierende : 4,50 €                            
-
-
-
-
-
-
-
-
-
-
-
-
-Nährwerte
-
-
-
-
-
-
-kcal
-258,91 kcal
-
-
-kJ
-1083,43 kJ
-
-
-Fett
-14,39 g
-
-
-gesättigte Fettsäuren
-7,87 g
-
-
-Kohlenhydrate
-10,51 g
-
-
-Zucker
-7,22 g
-
-
-Eiweiß
-21 g
-
-
-Salz
-2,66 g
-
-
-
-
-
-
-Vollkornpenne mit Grünkernragout
-Studierende: 1,20 €                            
-Nicht Studierende : 4,50 €                            
-
-
-
-
-
-
-
-
-
-
-
-
-Nährwerte
-
-
-
-
-
-
-kcal
-689,1 kcal
-
-
-kJ
-2898,1 kJ
-
-
-Fett
-17,52 g
-
-
-gesättigte Fettsäuren
-1,81 g
-
-
-Kohlenhydrate
-106,62 g
-
-
-Zucker
-15,43 g
-
-
-Eiweiß
-20,33 g
-
-
-Salz
-4,43 g
-
-
-
-
-
-
-Pfälzer Kartoffelsuppe
-Studierende: 1,80 €                            
-Nicht Studierende : 3,40 €                            
-
-
-
-
-
-
-
-
-
-Nährwerte
-
-
-
-
-
-
-kcal
-363,71 kcal
-
-
-kJ
-1522,58 kJ
-
-
-Fett
-9,94 g
-
-
-gesättigte Fettsäuren
-0,96 g
-
-
-Kohlenhydrate
-57,95 g
-
-
-Zucker
-10,62 g
-
-
-Eiweiß
-8,27 g
-
-
-Salz
-5,18 g
-
-
-
-
-
-
-Bockwurst
-Studierende: 1,20 €                            
-Nicht Studierende : 1,50 €                            
-
-
-
-
-
-
-
-
-
-
-
-
-Nährwerte
-
-
-
-
-
-
-kcal
-306 kcal
-
-
-kJ
-1265 kJ
-
-
-Fett
-28 g
-
-
-gesättigte Fettsäuren
-11,8 g
-
-
-Kohlenhydrate
-1 g
-
-
-Zucker
-0,8 g
-
-
-Eiweiß
-12,3 g
-
-
-Salz
-2,1 g
-
-
-
-
-
-
-Mettwurst
-Studierende: 1,20 €                            
-Nicht Studierende : 1,50 €                            
-
-
-
-
-
-
-
-
-
-
-
-
-Nährwerte
-
-
-
-
-
-
-kcal
-284 kcal
-
-
-kJ
-1178 kJ
-
-
-Fett
-23 g
-
-
-gesättigte Fettsäuren
-9,2 g
-
-
-Kohlenhydrate
-0,5 g
-
-
-Zucker
-0,5 g
-
-
-Eiweiß
-20 g
-
-
-Salz
-2,4 g
-
-
-
-
-
-
-Weizenbrötchen
-Studierende: 0,60 €                            
-Nicht Studierende : 0,60 €                            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Nährwerte
-
-
-
-
-
-
-kcal
-170,8 kcal
-
-
-kJ
-723,8 kJ
-
-
-Fett
-1,47 g
-
-
-gesättigte Fettsäuren
-0,21 g
-
-
-Kohlenhydrate
-33,04 g
-
-
-Zucker
-0,98 g
-
-
-Eiweiß
-5,32 g
-
-
-Salz
-1,05 g
-
-
-
+<table class="article-component-header">
+<tr>
+<td>Kokos-Curry mit Hähnchenbruststreifen</td>
+<td>Studierende: 2,00 €                            </td>
+<td>Nicht Studierende : 4,50 €                            </td>
+<td>
+</td>
+</tr>
+</table>
+
+<table class="components">
+<tr><td>
+<img class="allergenimage" src="images\allergens\8.png
+"/>
+<img class="allergenimage" src="images\allergens\19.png
+"/>
+<img class="allergenimage" src="images\allergens\20.png
+"/>
+<img class="allergenimage" src="images\additives\13.png
+"/>
+</td></tr>
+<tr><td class="sectionheader">Nährwerte</td></tr>
+<tr><td><table class="nutrienttable">
+<colgroup>
+<col class="column_Nutrient_Name"/>
+<col class="column_Nutrient_Value"/>
+</colgroup>
+<tr>
+<td class="nutrient_name">kcal</td>
+<td class="nutrient_value">258,91 kcal</td>
+</tr>
+<tr>
+<td class="nutrient_name">kJ</td>
+<td class="nutrient_value">1083,43 kJ</td>
+</tr>
+<tr>
+<td class="nutrient_name">Fett</td>
+<td class="nutrient_value">14,39 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">gesättigte Fettsäuren</td>
+<td class="nutrient_value">7,87 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Kohlenhydrate</td>
+<td class="nutrient_value">10,51 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Zucker</td>
+<td class="nutrient_value">7,22 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Eiweiß</td>
+<td class="nutrient_value">21 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Salz</td>
+<td class="nutrient_value">2,66 g</td>
+</tr>
+</table></td></tr>
+</table>
+
+<table class="article-component-header">
+<tr>
+<td>Vollkornpenne mit Grünkernragout</td>
+<td>Studierende: 1,20 €                            </td>
+<td>Nicht Studierende : 4,50 €                            </td>
+<td>
+</td>
+</tr>
+</table>
+
+<table class="components">
+<tr><td>
+<img class="allergenimage" src="images\allergens\8.png
+"/>
+<img class="allergenimage" src="images\allergens\16.png
+"/>
+<img class="allergenimage" src="images\allergens\20.png
+"/>
+<img class="allergenimage" src="images\allergens\21.png
+"/>
+</td></tr>
+<tr><td class="sectionheader">Nährwerte</td></tr>
+<tr><td><table class="nutrienttable">
+<colgroup>
+<col class="column_Nutrient_Name"/>
+<col class="column_Nutrient_Value"/>
+</colgroup>
+<tr>
+<td class="nutrient_name">kcal</td>
+<td class="nutrient_value">689,1 kcal</td>
+</tr>
+<tr>
+<td class="nutrient_name">kJ</td>
+<td class="nutrient_value">2898,1 kJ</td>
+</tr>
+<tr>
+<td class="nutrient_name">Fett</td>
+<td class="nutrient_value">17,52 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">gesättigte Fettsäuren</td>
+<td class="nutrient_value">1,81 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Kohlenhydrate</td>
+<td class="nutrient_value">106,62 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Zucker</td>
+<td class="nutrient_value">15,43 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Eiweiß</td>
+<td class="nutrient_value">20,33 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Salz</td>
+<td class="nutrient_value">4,43 g</td>
+</tr>
+</table></td></tr>
+</table>
+
+<table class="article-component-header">
+<tr>
+<td>Pfälzer Kartoffelsuppe</td>
+<td>Studierende: 1,80 €                            </td>
+<td>Nicht Studierende : 3,40 €                            </td>
+<td>
+</td>
+</tr>
+</table>
+
+<table class="components">
+<tr><td>
+<img class="allergenimage" src="images\allergens\16.png
+"/>
+</td></tr>
+<tr><td class="sectionheader">Nährwerte</td></tr>
+<tr><td><table class="nutrienttable">
+<colgroup>
+<col class="column_Nutrient_Name"/>
+<col class="column_Nutrient_Value"/>
+</colgroup>
+<tr>
+<td class="nutrient_name">kcal</td>
+<td class="nutrient_value">363,71 kcal</td>
+</tr>
+<tr>
+<td class="nutrient_name">kJ</td>
+<td class="nutrient_value">1522,58 kJ</td>
+</tr>
+<tr>
+<td class="nutrient_name">Fett</td>
+<td class="nutrient_value">9,94 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">gesättigte Fettsäuren</td>
+<td class="nutrient_value">0,96 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Kohlenhydrate</td>
+<td class="nutrient_value">57,95 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Zucker</td>
+<td class="nutrient_value">10,62 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Eiweiß</td>
+<td class="nutrient_value">8,27 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Salz</td>
+<td class="nutrient_value">5,18 g</td>
+</tr>
+</table></td></tr>
+</table>
+
+<table class="article-component-header">
+<tr>
+<td>Bockwurst</td>
+<td>Studierende: 1,20 €                            </td>
+<td>Nicht Studierende : 1,50 €                            </td>
+<td>
+</td>
+</tr>
+</table>
+
+<table class="components">
+<tr><td>
+<img class="allergenimage" src="images\additives\4.png
+"/>
+<img class="allergenimage" src="images\additives\5.png
+"/>
+<img class="allergenimage" src="images\additives\11.png
+"/>
+<img class="allergenimage" src="images\additives\17.png
+"/>
+</td></tr>
+<tr><td class="sectionheader">Nährwerte</td></tr>
+<tr><td><table class="nutrienttable">
+<colgroup>
+<col class="column_Nutrient_Name"/>
+<col class="column_Nutrient_Value"/>
+</colgroup>
+<tr>
+<td class="nutrient_name">kcal</td>
+<td class="nutrient_value">306 kcal</td>
+</tr>
+<tr>
+<td class="nutrient_name">kJ</td>
+<td class="nutrient_value">1265 kJ</td>
+</tr>
+<tr>
+<td class="nutrient_name">Fett</td>
+<td class="nutrient_value">28 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">gesättigte Fettsäuren</td>
+<td class="nutrient_value">11,8 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Kohlenhydrate</td>
+<td class="nutrient_value">1 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Zucker</td>
+<td class="nutrient_value">0,8 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Eiweiß</td>
+<td class="nutrient_value">12,3 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Salz</td>
+<td class="nutrient_value">2,1 g</td>
+</tr>
+</table></td></tr>
+</table>
+
+<table class="article-component-header">
+<tr>
+<td>Mettwurst</td>
+<td>Studierende: 1,20 €                            </td>
+<td>Nicht Studierende : 1,50 €                            </td>
+<td>
+</td>
+</tr>
+</table>
+
+<table class="components">
+<tr><td>
+<img class="allergenimage" src="images\additives\4.png
+"/>
+<img class="allergenimage" src="images\additives\5.png
+"/>
+<img class="allergenimage" src="images\additives\11.png
+"/>
+<img class="allergenimage" src="images\additives\17.png
+"/>
+</td></tr>
+<tr><td class="sectionheader">Nährwerte</td></tr>
+<tr><td><table class="nutrienttable">
+<colgroup>
+<col class="column_Nutrient_Name"/>
+<col class="column_Nutrient_Value"/>
+</colgroup>
+<tr>
+<td class="nutrient_name">kcal</td>
+<td class="nutrient_value">284 kcal</td>
+</tr>
+<tr>
+<td class="nutrient_name">kJ</td>
+<td class="nutrient_value">1178 kJ</td>
+</tr>
+<tr>
+<td class="nutrient_name">Fett</td>
+<td class="nutrient_value">23 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">gesättigte Fettsäuren</td>
+<td class="nutrient_value">9,2 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Kohlenhydrate</td>
+<td class="nutrient_value">0,5 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Zucker</td>
+<td class="nutrient_value">0,5 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Eiweiß</td>
+<td class="nutrient_value">20 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Salz</td>
+<td class="nutrient_value">2,4 g</td>
+</tr>
+</table></td></tr>
+</table>
+
+<table class="article-component-header">
+<tr>
+<td>Weizenbrötchen</td>
+<td>Studierende: 0,60 €                            </td>
+<td>Nicht Studierende : 0,60 €                            </td>
+<td>
+</td>
+</tr>
+</table>
+
+<table class="components">
+<tr><td>
+<img class="allergenimage" src="images\allergens\7.png
+"/>
+<img class="allergenimage" src="images\allergens\8.png
+"/>
+<img class="allergenimage" src="images\allergens\12.png
+"/>
+<img class="allergenimage" src="images\allergens\13.png
+"/>
+<img class="allergenimage" src="images\allergens\19.png
+"/>
+<img class="allergenimage" src="images\allergens\20.png
+"/>
+</td></tr>
+<tr><td class="sectionheader">Nährwerte</td></tr>
+<tr><td><table class="nutrienttable">
+<colgroup>
+<col class="column_Nutrient_Name"/>
+<col class="column_Nutrient_Value"/>
+</colgroup>
+<tr>
+<td class="nutrient_name">kcal</td>
+<td class="nutrient_value">170,8 kcal</td>
+</tr>
+<tr>
+<td class="nutrient_name">kJ</td>
+<td class="nutrient_value">723,8 kJ</td>
+</tr>
+<tr>
+<td class="nutrient_name">Fett</td>
+<td class="nutrient_value">1,47 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">gesättigte Fettsäuren</td>
+<td class="nutrient_value">0,21 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Kohlenhydrate</td>
+<td class="nutrient_value">33,04 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Zucker</td>
+<td class="nutrient_value">0,98 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Eiweiß</td>
+<td class="nutrient_value">5,32 g</td>
+</tr>
+<tr>
+<td class="nutrient_name">Salz</td>
+<td class="nutrient_value">1,05 g</td>
+</tr>
+</table></td></tr>
+</table>

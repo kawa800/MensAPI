@@ -1,11 +1,14 @@
 from urllib.parse import urljoin
+
 import requests
 from bs4 import BeautifulSoup
+from bs4 import Tag
 import re
 import datetime as dt
 
 from mensapi.scraper.types import DailyMenu
 from mensapi.scraper.legend import resolve_additive_or_allergen
+from mensapi.api.models import Dish, Prices, Nutrients, Allergens
 
 class Page:
 
@@ -17,19 +20,75 @@ class Page:
 
 
     @property
-    def containers(self) -> list[str]:
+    def html_tags(self) -> list[tuple[Tag, Tag | None]]:
         """
-        A container is the parent that contains all the information needed to parse a dish, as well as excess information.
-        It is made up of: button.accordion (contains meal name, prices) and sibling div.panel (contains nutrients, allergens).
+        Contains all the information needed to parse a dish.
+        Returns a list of tuples: (button.accordion, sibling div.panel)
         """
-        # filter
-        node = self.soup.find_all("button", class_="accordion")
+        nodes = self.soup.find_all("button", class_="accordion")
         res = []
-        for n in node:
-            component = n.find("table", class_="article-component-header")
-            if component:
-                res.append(n)
-                res.append(n.find_next_sibling("div", class_="panel"))
+        for n in nodes:
+            header = n.find("table", class_="article-component-header")
+            if header:
+                panel = n.find_next_sibling("div", class_="panel")
+                res.append((header, panel))
+
+        return res
+
+    def _parse_name(self, header: Tag) -> str:
+        # First occurence is name
+        name = header.find("td")
+        return name.get_text().strip()
+
+
+    def _parse_prices(header: Tag) -> Prices:
+        # Second and third <td> are price
+        prices = header.find_all("td")[1:3]
+
+        price_students = prices[0].get_text()
+        price_non_students = prices[1].get_text()
+
+
+        return Prices(
+                price_students=self._clean_price_string(price_students),
+                price_non_students=self._clean_price_string(price_non_students)
+        )
+
+
+    def _clean_price_string(self, price_string: str) -> float:
+        try:
+            parts = price_string.split()
+            return float(parts[1].replace(",","."))
+        except(IndexError, ValueError):
+            return 0.0
+
+
+    def _parse_nutrients(html_tag: Tag) -> Nutrients:
+        pass
+
+
+
+    def _parse_allergens(html_tag: Tag) -> Allergens:
+        pass
+    
+    def _build_dish(day: str, date: dt.datetime, html_tag: Tag) -> Dish:
+
+        return Dish(
+                day=self.day,
+                date=self.date,
+                name=self._parse_name(html_tag),
+                prices=self._parse_prices(html_tag),
+                nutrients=self._parse_nutrients(html_tag),
+                allergens=self._parse_allergens(html_tag)
+                )
+
+
+    @property
+    def dishes(self) -> list[Dish]:
+        res = []
+        for tag in self.html_tags:
+            dish = self._build_dish(self.day, self.date, tag)
+            res.append(dish)
 
         return res
         
@@ -49,22 +108,6 @@ class Page:
         date = self.soup.find("h2").find_next_sibling("p").text
         format = "%d.%m.%Y"
         res = dt.datetime.strptime(date, format)
-        return res if res else None
-
-    @property
-    def meal_name(self) -> list[str] | None:
-        res = []
-        meal_list = self.soup.find_all("button", class_="accordion")
-        for meal in meal_list:
-            first_td = meal.find("td")
-            if first_td:
-                res.append(first_td.text)
-            # for name in names:
-            #     meal  = name.text.strip()
-            #     meal_cleaned = " ".join(meal.split("\n"))
-            #     if meal_cleaned:
-            #         res.append(meal_cleaned)
-
         return res if res else None
 
 
