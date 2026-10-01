@@ -60,7 +60,10 @@ class Page:
         tag_text = price.get_text()
         try:
             parts = tag_text.split()
-            return float(parts[1].replace(",","."))
+            if "Nicht" in parts:
+                return float(parts[3].replace(",", "."))
+            else:
+                return float(parts[1].replace(",","."))
         except ValueError as e:
             raise ValueError(f"Failed to clean {tag_text!r} in {self.day}")
 
@@ -108,6 +111,8 @@ class Page:
             category, image_name = image_tag.split("\\")[1:]
             allergen_id = int(image_name.split(".")[0])
             name = resolve_additive_or_allergen(category, allergen_id)
+            if not name:
+                raise ValueError(f"Error: The allergen_id {allergen_id} for the day {self.day} hasn't been added to the legend.")
             res.append(Allergens(
                  allergen_id=allergen_id,
                  category=category,
@@ -117,16 +122,21 @@ class Page:
         return res
 
 
-    def _build_dish(self, day: str, date: dt.datetime, header: Tag, panel: Tag) -> Dish:
-
-        return Dish(
-                day=self.day,
-                date=self.date,
-                name=self._parse_name(header),
-                prices=self._parse_prices(header),
-                nutrients=self._parse_nutrients(panel),
-                allergens=self._parse_allergens(panel)
-                )
+    def _build_dishes(self) -> list[Dish]:
+        res = []
+        tags = self.html_tags
+        for header, panel in tags:
+            if header and panel:
+                res.append(Dish(
+                        day=self.day,
+                        date=self.date,
+                        name=self._parse_name(header),
+                        prices=self._parse_prices(header),
+                        nutrients=self._parse_nutrients(panel),
+                        allergens=self._parse_allergens(panel)
+                        )
+                   )
+        return res
 
 
     @property
@@ -134,7 +144,8 @@ class Page:
         res = []
         for tag in self.html_tags:
             dish = self._build_dish(self.day, self.date, tag)
-            res.append(dish)
+            if dish:
+                res.append(dish)
 
         return res
         

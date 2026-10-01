@@ -16,6 +16,7 @@ ALLERGENS_BY_IMAGE = {
     18: "sesame",
     19: "soy",
     20: "wheat",
+    21: "",
     22: "coffein",
 
 }

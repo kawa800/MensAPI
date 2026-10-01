@@ -16,7 +16,6 @@ def main():
 
     website = Website.from_mensa_url(BASE_URL)
     scraped_meals = website.weekly_menu
-    print(scraped_meals)
 
     if scraped_meals:
         commit_data(scraped_meals)

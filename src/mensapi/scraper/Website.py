@@ -64,12 +64,14 @@ class Website:
 
 
     @property
-    def weekly_menu(self) -> list[DailyMenu]:
+    def weekly_menu(self) -> list[Dish]:
         result = []
         if self.iframes:
             for page in self.iframes:
-                for dish in page.complete_dishes:
-                    result.append(dish)
+                dishes = page._build_dishes()
+                for dish in dishes:
+                    if dish:
+                        result.append(dish)
 
         return result
         

@@ -13,12 +13,8 @@ BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
 
 def test():
     website = Website.from_mensa_url(BASE_URL)
-    iframes = website.iframes
-    tuesday_iframe = iframes[1]
-    res = tuesday_iframe.html_tags
-    for header, panel in res:
-        print(tuesday_iframe._parse_allergens(panel)[0].name)
-        print("---")
+    scraped_meals = website.weekly_menu
+    print(scraped_meals)
         
 
 test()
