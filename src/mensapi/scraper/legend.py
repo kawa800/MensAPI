@@ -2,6 +2,7 @@
 
 ALLERGENS_BY_IMAGE = {
     5: "eggs",
+    6: "fish",
     7: "barley",
     8: "gluten",
     9: "oats",
@@ -16,7 +17,7 @@ ALLERGENS_BY_IMAGE = {
     18: "sesame",
     19: "soy",
     20: "wheat",
-    21: "",
+    21: "spelt",
     22: "coffein",
 
 }
