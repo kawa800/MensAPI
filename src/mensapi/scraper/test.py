@@ -17,7 +17,8 @@ def test():
     tuesday_iframe = iframes[1]
     res = tuesday_iframe.html_tags
     for header, panel in res:
-        print(tuesday_iframe._parse_nutrients(panel))
+        print(tuesday_iframe._parse_allergens(panel)[0].name)
+        print("---")
         
 
 test()

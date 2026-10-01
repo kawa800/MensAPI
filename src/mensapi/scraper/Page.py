@@ -100,13 +100,22 @@ class Page:
             raise ValueError(f"Failed to clean nutrient {nutrient.text!r} in {self.day}")
 
 
-    def _clean_nutrient_value_string(self, nutrient_value_string: str) -> float:
-        pass
-                       
+    def _parse_allergens(self, panel: Tag) -> list[Allergens] | None:
+        res = []
+        allergen_imagepaths = panel.find_all("img", class_="allergenimage")
+        for allergen_imagepath in allergen_imagepaths:
+            image_tag = allergen_imagepath.get("src")
+            category, image_name = image_tag.split("\\")[1:]
+            allergen_id = int(image_name.split(".")[0])
+            name = resolve_additive_or_allergen(category, allergen_id)
+            res.append(Allergens(
+                 allergen_id=allergen_id,
+                 category=category,
+                 name=name
+                 )
+            )
+        return res
 
-    def _parse_allergens(self, panel: Tag) -> Allergens:
-        pass
-    
 
     def _build_dish(self, day: str, date: dt.datetime, header: Tag, panel: Tag) -> Dish:
 
