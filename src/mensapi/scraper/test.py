@@ -17,7 +17,8 @@ def test():
     tuesday_iframe = iframes[1]
     res = tuesday_iframe.html_tags
     for header, panel in res:
-        print(Page.parse_prices(header).price_students)
+        print(tuesday_iframe._parse_nutrients(panel))
+        
 
 test()
 

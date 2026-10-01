@@ -22,8 +22,9 @@ class Page:
     @property
     def html_tags(self) -> list[tuple[Tag, Tag | None]]:
         """
-        Contains all the information needed to parse a dish.
-        Returns a list of tuples: (button.accordion, sibling div.panel)
+        Contains all the information needed to parse a dish. The data is contained in
+        the two parents (button.accordion, sibling div.panel). We return these as a list of
+        tuples in order to be able to parse them separately.
         """
         nodes = self.soup.find_all("button", class_="accordion")
         res = []
@@ -41,45 +42,81 @@ class Page:
         return name.get_text().strip()
 
 
-    def _parse_prices(header: Tag) -> Prices:
+    def _parse_prices(self, header: Tag) -> Prices:
         # Second and third <td> are price
         prices = header.find_all("td")[1:3]
 
-        price_students = prices[0].get_text()
-        price_non_students = prices[1].get_text()
+        price_students = prices[0]
+        price_non_students = prices[1]
 
 
         return Prices(
-                price_students=self._clean_price_string(price_students),
-                price_non_students=self._clean_price_string(price_non_students)
+                price_students=self._clean_price(price_students),
+                price_non_students=self._clean_price(price_non_students)
         )
 
 
-    def _clean_price_string(self, price_string: str) -> float:
+    def _clean_price(self, price: Tag) -> float:
+        tag_text = price.get_text()
         try:
-            parts = price_string.split()
+            parts = tag_text.split()
             return float(parts[1].replace(",","."))
-        except(IndexError, ValueError):
-            return 0.0
+        except ValueError as e:
+            raise ValueError(f"Failed to clean {tag_text!r} in {self.day}")
 
 
-    def _parse_nutrients(html_tag: Tag) -> Nutrients:
+    def _parse_nutrients(self, panel: Tag) -> Nutrients:
+        """ Assumes the order: kcal, kJ, fat, saturated_fat, carbohydrates, sugar, protein, salt """
+        values = panel.find_all("td", class_="nutrient_value")
+
+        kcal = self._clean_nutrient(values[0])
+        kJ = self._clean_nutrient(values[1])
+        fat = self._clean_nutrient(values[2])
+        saturated_fat = self._clean_nutrient(values[3])
+        carbohydrates = self._clean_nutrient(values[4])
+        sugar = self._clean_nutrient(values[5])
+        protein = self._clean_nutrient(values[6])
+        salt = self._clean_nutrient(values[7])
+
+
+        return Nutrients(
+                kcal=kcal,
+                kJ=kJ,
+                fat=fat,
+                saturated_fat=saturated_fat,
+                carbohydrates=carbohydrates,
+                sugar=sugar,
+                protein=protein,
+                salt=salt,
+            )
+
+
+    def _clean_nutrient(self, nutrient: Tag) -> float:
+        nutrient_text = nutrient.get_text()
+        try:
+            number = nutrient_text.split()[0]
+            return float(number.replace(",","."))
+        except ValueError as e:
+            raise ValueError(f"Failed to clean nutrient {nutrient.text!r} in {self.day}")
+
+
+    def _clean_nutrient_value_string(self, nutrient_value_string: str) -> float:
         pass
+                       
 
-
-
-    def _parse_allergens(html_tag: Tag) -> Allergens:
+    def _parse_allergens(self, panel: Tag) -> Allergens:
         pass
     
-    def _build_dish(day: str, date: dt.datetime, html_tag: Tag) -> Dish:
+
+    def _build_dish(self, day: str, date: dt.datetime, header: Tag, panel: Tag) -> Dish:
 
         return Dish(
                 day=self.day,
                 date=self.date,
-                name=self._parse_name(html_tag),
-                prices=self._parse_prices(html_tag),
-                nutrients=self._parse_nutrients(html_tag),
-                allergens=self._parse_allergens(html_tag)
+                name=self._parse_name(header),
+                prices=self._parse_prices(header),
+                nutrients=self._parse_nutrients(panel),
+                allergens=self._parse_allergens(panel)
                 )
 
 
