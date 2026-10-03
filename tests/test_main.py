@@ -28,7 +28,6 @@ def test_today_sunday(client, today_dishes, set_date):
     assert response.status_code == 200
     assert response.json() == {"detail": "There are no dishes on the weekend."}
 
-
 def test_week_current(client, db_current_dish_oli):
     """ 
     When a database sets the time as now and the dish as 'Orientalischer Linseneintopf',
