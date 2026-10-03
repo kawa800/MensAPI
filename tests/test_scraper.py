@@ -2,10 +2,11 @@ import pytest
 import requests
 from unittest.mock import Mock
 import datetime as dt
+from pathlib import Path
 
 from mensapi.scraper.Page import Page 
 from mensapi.scraper.Website import Website 
-from tests.conftest import BASE_URL
+from tests.conftest import BASE_URL, HTML_DIR
 
 def test_website():
     """ Instantiating a Website returns an object with the same base_url as instance variable """
@@ -86,11 +87,11 @@ def test_complete_dishes(bolognese_mock, complete_dishes_bolognese):
     page.complete_dishes[0]
     assert page.complete_dishes[0] == complete_dishes_bolognese 
 
-    """ What did I want to test? """
 def test_fetch():
     website = Website.from_mensa_url(BASE_URL)
     iframe_days = [frame.day for frame in website.iframes] 
     assert iframe_days == ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+
 
 def test_factory():
     website = Website.from_mensa_url(base_url=BASE_URL)
