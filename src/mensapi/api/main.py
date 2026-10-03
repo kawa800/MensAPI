@@ -15,8 +15,13 @@ from typing import Annotated
 
 
 app = FastAPI()
-# Dependency Injection
-SessionDep = Annotated[Session, Depends(get_db)]
+# Dependency Injections
+SessionDep = Annotated[Session, Depends(get_db)] # Database
+
+def current_date() -> dt.date: # Date
+    """ Return the current date. Dependency Injection for get_today """
+    return dt.date.today()
+
 # Week offsets in German for /api/week/{day} endpoint
 OFFSET = {
             "montag": 0, "dienstag": 1, "mittwoch": 2, "donnerstag": 3, "freitag": 4, "samstag": 5, "sonntag": 6,
@@ -24,15 +29,18 @@ OFFSET = {
          }
 
 
+
 @app.get("/")
 async def root():
-
     return {"message": "Oliebe"}
-
+    
 
 @app.get("/api/today", response_model=list[DishResponse]) 
-async def get_daily_menu(db: SessionDep) -> list[DishResponse]:
+async def get_today(db: SessionDep, today: dt.date = Depends(current_date)) -> list[DishResponse]:
     """ Get today's Menu. """
+    if today.weekday() >= 5:
+        raise HTTPException(status_code=status.HTTP_200_OK, detail="There are no dishes on the weekend.")
+
     weekday = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
     current_day_index = dt.datetime.now().weekday()
     query_result = db.execute(select(models.Dish).where(models.Dish.day == weekday[current_day_index]))
@@ -71,7 +79,7 @@ async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -
     day_lower = day.lower()
     if day_lower not in OFFSET:
         raise HTTPException(
-            status_code=status.HTTP_404_BAD_REQUEST,
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid day {day}. Use in the format: /api/week/montag or /api/week/monday."
         )
 

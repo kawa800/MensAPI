@@ -13,7 +13,7 @@ from mensapi.scraper.Page import Page
 from mensapi.scraper.Website import Website 
 from mensapi.scraper.legend import resolve_additive_or_allergen
 from mensapi.scraper.types import DailyMenu
-from mensapi.api.main import app, Base, get_db
+from mensapi.api.main import app, Base, get_db, current_date
 from mensapi.api.models import Allergens, Dish, Nutrients, Prices
 
 BASE_URL = "https://mocca.stw-d.de/mocca.digitalsignage/3500/Speiseplan3500/"
@@ -228,3 +228,92 @@ def complete_dishes_bolognese() -> DailyMenu:
         ],
     }
     return result
+
+
+@pytest.fixture
+def today_dishes(db_session: Session) -> list[Dish]:
+    today_date = dt.date.today()
+
+    veg_wrap = Dish(
+        day="Placeholder",
+        date=today_date,
+        name="Veggie Wrap mit Hummus",
+    )
+    veg_wrap.prices = Prices(
+        price_students=2.50,
+        price_non_students=3.20,
+    )
+    veg_wrap.nutrients = Nutrients(
+        protein=8.2,
+        fat=5.0,
+        saturated_fat=0.8,
+        kcal=210,
+        kJ=880,
+        carbohydrates=27.0,
+        salt=0.7,
+        sugar=3.5,
+    )
+    veg_wrap.allergens = [
+        Allergens(
+            allergen_id=7,     
+            category="Allergen",
+            name="Gluten",
+        ),
+        Allergens(
+            allergen_id=1,    
+            category="Allergen",
+            name="Weizen",
+        ),
+    ]
+
+    schnitzel = Dish(
+        day="Placeholder",
+        date=today_date,
+        name="Schnitzel mit Bratkartoffeln",
+    )
+    schnitzel.prices = Prices(
+        price_students=3.30,
+        price_non_students=4.10,
+    )
+    schnitzel.nutrients = Nutrients(
+        protein=22.5,
+        fat=12.0,
+        saturated_fat=4.5,
+        kcal=340,
+        kJ=1420,
+        carbohydrates=31.0,
+        salt=1.2,
+        sugar=2.0,
+    )
+    schnitzel.allergens = [
+        Allergens(
+            allergen_id=33,       
+            category="Allergen",
+            name="Milch",
+        ),
+        Allergens(
+            allergen_id=2,         
+            category="Allergen",
+            name="Eier",
+        ),
+    ]
+
+    db_session.add_all([veg_wrap, schnitzel])
+    db_session.commit()     
+
+    return [veg_wrap, schnitzel]
+
+def override_date(desired = dt.date):
+    """ Return a date to test API on a specific day """
+    async def _override_date() -> dt.date:
+        return desired
+    return _override_date
+
+@pytest.fixture
+def set_date():
+    def _setter(target: dt.date):
+        app.dependency_overrides[current_date] = override_date(target)
+
+    yield _setter
+
+    app.dependency_overrides.pop(current_date, None)
