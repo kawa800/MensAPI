@@ -1,4 +1,6 @@
 from fastapi import Depends, FastAPI, HTTPException, Query, status
+from fastapi.middleware.cors import CORSMiddleware
+
 from pydantic import BaseModel
 import datetime as dt
 
@@ -28,6 +30,15 @@ OFFSET = {
             "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3, "friday": 4, "saturday": 5, "sunday": 6
          }
 
+# CORS Settings
+app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["http://localhost:5173"],
+        allow_methods=["GET"],
+        allow_headers=["*"]
+        )
+origins = [
+]
 
 
 @app.get("/")
