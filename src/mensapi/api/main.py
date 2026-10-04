@@ -42,7 +42,7 @@ async def get_today(db: SessionDep, today: dt.date = Depends(current_date)) -> l
         raise HTTPException(status_code=status.HTTP_200_OK, detail="There are no dishes on the weekend.")
 
     weekday = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
-    current_day_index = dt.datetime.now().weekday()
+    current_day_index = today.weekday()
     query_result = db.execute(select(models.Dish).where(models.Dish.day == weekday[current_day_index]))
     dish = query_result.scalars().all()
     if dish:
@@ -59,7 +59,7 @@ async def get_dish_by_id(id: int, db: SessionDep) -> list[DishResponse]:
     if dishes:
         return dishes
     else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dish not found.")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dish not found under given id.")
 
 
 @app.get("/api/week/current", response_model=list[DishResponse], responses= {200: {"content": {"application/json": {"example": WEEKLY_MENU_EXAMPLE}}}})
@@ -72,7 +72,8 @@ async def get_weekly_menu(db: SessionDep) -> list[DishResponse]:
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Weekly dishes not found.")
 
-def _resolve_day(day: str, offset_days: int) -> DateTime:
+
+def _resolve_day(day: str, offset_days: int, today: dt.date = Depends(current_date)) -> dt.date:
     day_lower = day.lower()
     if day_lower not in OFFSET:
         raise HTTPException(
@@ -80,18 +81,17 @@ def _resolve_day(day: str, offset_days: int) -> DateTime:
             detail=f"Invalid day {day}. Use in the format: /api/week/current/montag or /api/week/current/monday."
         )
 
-    today = dt.datetime.today()
     start_of_week = today - dt.timedelta(days=today.weekday())
 
-    target_day = start_of_week + dt.timedelta(days=OFFSET[day_lower] +offset_days)
+    target_day = start_of_week + dt.timedelta(days=OFFSET[day_lower] + offset_days)
     return target_day
 
 
 @app.get("/api/week/current/{day}", response_model=list[DishResponse])
-async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -> list[DishResponse]: 
+async  def get_current_week_menu(day: str, db: Annotated[Session, Depends(get_db)], today: dt.date = Depends(current_date)) -> list[DishResponse]: 
     """ Get the Daily Menu of day in the current week. """
-    target_day = _resolve_day(day, offset_days=0)
-    result = db.execute(select(models.Dish).where(models.Dish.date == target_day.date()))
+    target_day = _resolve_day(day, 0, today)
+    result = db.execute(select(models.Dish).where(models.Dish.date == target_day))
     dishes = result.scalars().all()
     if dishes:
         return dishes
@@ -100,10 +100,10 @@ async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -
 
 
 @app.get("/api/week/next/{day}", response_model=list[DishResponse])
-async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -> list[DishResponse]: 
+async  def get_next_week_menu(day: str, db: Annotated[Session, Depends(get_db)], today: dt.date = Depends(current_date)) -> list[DishResponse]: 
     """ Get the Daily Menu of day in the next week. """
-    target_day = _resolve_day(day, offset_days=7)
-    result = db.execute(select(models.Dish).where(models.Dish.date == target_day.date()))
+    target_day = _resolve_day(day, 7, today)
+    result = db.execute(select(models.Dish).where(models.Dish.date == target_day))
     dishes = result.scalars().all()
     if dishes:
         return dishes
