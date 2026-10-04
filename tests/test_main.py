@@ -22,11 +22,13 @@ def test_today_saturday(client, today_dishes, set_date):
     assert response.status_code == 200
     assert response.json() == {"detail": "There are no dishes on the weekend."}
 
+
 def test_today_sunday(client, today_dishes, set_date):
     set_date(dt.date(2026, 10, 4)) # Sunday
     response = client.get("/api/today")
     assert response.status_code == 200
     assert response.json() == {"detail": "There are no dishes on the weekend."}
+
 
 def test_week_current(client, db_current_dish_oli):
     """ 
