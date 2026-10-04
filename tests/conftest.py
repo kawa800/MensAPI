@@ -49,7 +49,7 @@ def db_engine():
 
 
 @pytest.fixture
-def db_session(db_engine):
+def db_session(db_engine) -> Session:
     # Create test items
     with engine.connect() as conn:
         transaction = conn.begin()
@@ -60,12 +60,12 @@ def db_session(db_engine):
 
 
 @pytest.fixture
-def db_current_dish_oli(db_session):
+def db_current_dish_oli(db_session: Session) -> Dish:
     dish = Dish(
         id=1 ,
         day="Donnerstag",
-        date=dt.datetime.now(),
-        name="Orientalischer Linseneintopf mit Kokonusmilch",
+        date=dt.date(2026, 10, 8),
+        name="Orientalischer Linseneintopf mit Kokosnussmilch",
         nutrients=Nutrients(
             protein=26.4, fat=25.53, saturated_fat=6.42, kcal=542.0,
             kJ=849.1, carbohydrates=101, salt=8.5, sugar=3.2
