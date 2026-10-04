@@ -111,55 +111,6 @@ async  def get_next_week_menu(day: str, db: Annotated[Session, Depends(get_db)],
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dish not found.")
 
 
-@app.get("/api/week/current/{day}", response_model=list[DishResponse])
-async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -> list[DishResponse]: 
-    """ Get the Daily Menu of day in the current week. """
-    day_lower = day.lower()
-    if day_lower not in OFFSET:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid day {day}. Use in the format: /api/week/current/montag or /api/week/current/monday."
-        )
-
-    today = dt.datetime.today()
-    start_of_week = today - dt.timedelta(days=today.weekday())
-
-    offset = OFFSET[day_lower]
-    target_day = start_of_week + dt.timedelta(days=offset)
-
-    result = db.execute(select(models.Dish).where(models.Dish.date == target_day.date()))
-    dishes = result.scalars().all()
-    if dishes:
-        return dishes
-    else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dish not found.")
-
-
-@app.get("/api/week/next/{day}", response_model=list[DishResponse])
-async  def get_weekday_menu(day: str, db: Annotated[Session, Depends(get_db)]) -> list[DishResponse]: 
-    """ Get the Daily Menu of day in the next week. """
-    day_lower = day.lower()
-    if day_lower not in OFFSET:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid day {day}. Use in the format: /api/week/next/montag or /api/week/next/monday."
-        )
-
-    today = dt.datetime.today()
-    start_of_week = today - dt.timedelta(days=today.weekday())
-
-    offset = OFFSET[day_lower] + 7
-    target_day = start_of_week + dt.timedelta(days=offset)
-
-    result = db.execute(select(models.Dish).where(models.Dish.date == target_day.date()))
-    dishes = result.scalars().all()
-    if dishes:
-        return dishes
-    else:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Dish not found.")
-
-
-
 @app.get("/api/week", response_model=list[DishResponse])
 async def get_weekly_menu(db: SessionDep, start: dt.date = Query(examples=["2026-09-21"]), end: dt.date = Query(examples=["2026-09-24"])) -> list[DishResponse]:
     """ Get the Daily Menu of days in the range of start_date to inclusive end_date. """
