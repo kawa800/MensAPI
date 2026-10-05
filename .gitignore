@@ -1,25 +1,25 @@
 __pycache__
 
-frontend/node_modules
+src/mensapi/frontend/node_modules
 
 # Output
-frontend/.output
-frontend/.vercel
-frontend/.netlify
-frontend/.wrangler
-frontend//.svelte-kit
-frontend//build
+src/mensapi/frontend/.output
+src/mensapi/frontend/.vercel
+src/mensapi/frontend/.netlify
+src/mensapi/frontend/.wrangler
+src/mensapi/frontend/.svelte-kit
+src/mensapi/frontend/build
 
 # OS
-frontend/.DS_Store
-frontend/Thumbs.db
+src/mensapi/frontend/.DS_Store
+src/mensapi/frontend/Thumbs.db
 
 # Env
-frontend/.env
-frontend/.env.*
-frontend/!.env.example
-frontend/!.env.test
+src/mensapi/frontend/.env
+src/mensapi/frontend/.env.*
+src/mensapi/frontend/!.env.example
+src/mensapi/frontend/!.env.test
 
 # Vite
-frontend/vite.config.js.timestamp-*
-frontend/vite.config.ts.timestamp-*
+src/mensapi/frontend/vite.config.js.timestamp-*
+src/mensapi/frontend/vite.config.ts.timestamp-*
