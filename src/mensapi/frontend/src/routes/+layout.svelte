@@ -5,36 +5,71 @@
 	let { children }: LayoutProps = $props();
 </script>
 
-<nav>
-	<a href="/">home</a>
-</nav>
+<header>
+	<div class="top-bar">MensAPI — Mensa Menü der Heinrich-Heine-Universität Düsseldorf</div>
+	<div class="header-bar">
+		<nav>
+			<a href="/api/docs">Dokumentation</a>
+			<a href="/">Über uns</a>
+		</nav>
+		<enhanced:img class="logo" src="../lib/assets/hhu-logo.webp" alt="The logo of Heinrich Heine University" />
+	</div>
+</header>
 
-
-
-<enhanced:img class="logo-top-right" src= '../lib/assets/hhu-logo.webp' alt="The logo of Heinrich Heine university" />
+<main>
+	{@render children()}
+</main>
 
 <style>
-:global(body) {
-  background: #A2BFFE;   /* vivid cobalt, “more blue” */
-  color: #0a2463;                /* dark blue text */
-}
+	:global(body) {
+		margin: 0;
+		background: #ffffff;
+		color: #1a1a1a;
+		font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+	}
 
-:global(main) {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  min-height: 100vh;
-}
+	.top-bar {
+		background: #eaf4ff;
+		color: #0369a1;
+		font-size: 0.85rem;
+		text-align: center;
+		padding: 0.4rem 1rem;
+		border-bottom: 1px solid #d6ebfb;
+	}
 
-.logo-top-right {
-    position: absolute;
-    top:      4px;
-    right:    24px;   /* 24px from right edge */
-    width:    128px;   /* exact pixel size */
-    height:   auto;     /* keeps aspect; change manually if square */
-    opacity:  0.9;     /* subtle blending */
-  }
+	.header-bar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 2rem;
+		border-bottom: 1px solid #eef2f6;
+	}
+
+	nav {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	nav a {
+		color: #334155;
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 0.95rem;
+		transition: color 0.15s ease;
+	}
+
+	nav a:hover {
+		color: #0284c7;
+	}
+
+	.logo {
+		width: 96px;
+		height: auto;
+	}
+
+	:global(main) {
+		max-width: 900px;
+		margin: 0 auto;
+		padding: 2rem 1.5rem;
+	}
 </style>
-
-
-{@render children()}
