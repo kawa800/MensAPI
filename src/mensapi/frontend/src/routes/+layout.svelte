@@ -9,8 +9,9 @@
 	<div class="top-bar">MensAPI — Mensa Menü der Heinrich-Heine-Universität Düsseldorf</div>
 	<div class="header-bar">
 		<nav>
+			<a href="/"> Home </a>
 			<a href="/api/docs">Dokumentation</a>
-			<a href="/">Über uns</a>
+			<a href="/kontakt">Kontakt</a>
 		</nav>
 		<enhanced:img class="logo" src="../lib/assets/hhu-logo.webp" alt="The logo of Heinrich Heine University" />
 	</div>
