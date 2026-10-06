@@ -6,14 +6,14 @@
 </script>
 
 <header>
-	<div class="top-bar">MensAPI — Mensa Menü der Heinrich-Heine-Universität Düsseldorf</div>
+	<div class="top-bar">MensAPI — Daten zum Mensa Menü der Heinrich-Heine-Universität Düsseldorf</div>
 	<div class="header-bar">
 		<nav>
 			<a href="/"> Home </a>
 			<a href="/api/docs">Dokumentation</a>
 			<a href="/kontakt">Kontakt</a>
 		</nav>
-		<enhanced:img class="logo" src="../lib/assets/hhu-logo.webp" alt="The logo of Heinrich Heine University" />
+		<a href="/"><enhanced:img class="logo" src="../lib/assets/hhu-logo.webp" alt="The logo of Heinrich Heine University" /></a>
 	</div>
 </header>
 
@@ -73,4 +73,13 @@
 		margin: 0 auto;
 		padding: 2rem 1.5rem;
 	}
+
+	footer {
+	  font-size: 15px;
+	  position: fixed;
+	  bottom: 0;
+	  right: 0;
+	  padding: 0.5rem 1rem;
+	}
+
 </style>
