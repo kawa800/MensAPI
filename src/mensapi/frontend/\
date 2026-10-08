@@ -1,0 +1,20 @@
+<script lang="ts">
+	import DishList from '$lib/DishList.svelte'
+	let { data } = $props();
+	
+	const weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
+	let selectedDay = $state[weekdays[0]]
+
+</script>
+
+
+<div class="tab">
+	{#each weekdays as day}
+		<button
+			class:active={day == selectedDay}
+			onclick={() => (selectedDay = day)}
+		>
+			{day}
+		</button>
+	{/each}
+</div>
