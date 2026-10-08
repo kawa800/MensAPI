@@ -4,7 +4,12 @@
 	
 	const weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag'];
 	let selectedDay = $state(weekdays[0]);
-	$inspect(selectedDay)
+	$inspect(selectedDay);
+
+	let dishesForDay= $derived(
+		data.dishes.filter( (d) => d.day == selectedDay)
+	);
+	$inspect(dishesForDay)
 </script>
 
 
@@ -20,6 +25,8 @@
 		</button>
 	{/each}
 </div>
+
+<DishList dishes={dishesForDay} />
 
 
 <style>

@@ -3,17 +3,20 @@ from __future__ import annotations
 from datetime import date, datetime, timezone, timedelta
 from mensapi.api.database import Base
 
-from sqlalchemy import Date, DateTime, Float, ForeignKey, Integer, String, Text
+from sqlalchemy import Date, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 UTC_TWO = timezone(timedelta(hours=2))
 
 class Dish(Base):
     __tablename__ = "dishes"
+    __table_args__ = (
+            UniqueConstraint("date", "name", name="uq_upsert_duplicates"),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     day: Mapped[str] = mapped_column(String(20), nullable=False)
-    date: Mapped[datetime] = mapped_column(Date, default= lambda: datetime.now(UTC_TWO).date())
+    date: Mapped[date] = mapped_column(Date, default= lambda: datetime.now(UTC_TWO).date())
     name: Mapped[str] = mapped_column(String(255), nullable=False)
 
     nutrients: Mapped[Nutrients] = relationship(
@@ -28,8 +31,9 @@ class Dish(Base):
 
     allergens: Mapped[list[Allergens]] = relationship( # Allows for dish.allergens to return all allergens
         back_populates="dish",
-        cascade="all, delete"
+        cascade="all, delete-orphan"
     ) 
+
 
 
 class Prices(Base): 

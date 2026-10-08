@@ -161,10 +161,10 @@ class Page:
         return day.get_text().strip() if day else None
     
     @property
-    def date(self) -> dt.datetime | None: 
+    def date(self) -> dt.date | None: 
         date = self.soup.find("h2").find_next_sibling("p").text
         format = "%d.%m.%Y"
-        res = dt.datetime.strptime(date, format)
+        res = dt.datetime.strptime(date, format).date()
         return res if res else None
 
 
