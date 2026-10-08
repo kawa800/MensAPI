@@ -6,6 +6,7 @@ from typing import TypedDict
 from sqlalchemy import StaticPool, create_engine
 from sqlalchemy.orm import sessionmaker
 import datetime as dt
+from datetime import date
 
 from fastapi.testclient import TestClient
 
@@ -188,7 +189,7 @@ def bolognese_expected_allergens() -> list[dict[str,str]]:
 def complete_dishes_bolognese() -> DailyMenu:
     result = {
         "day": "Donnerstag",
-        "date": dt.datetime(2026, 9, 10, 0, 0),
+        "date": dt.datetime(2026, 9, 10, 0, 0).date(),
         "name": "Penne mit Sauce Bolognese",
         "price": {
             "Students": 2.40,
