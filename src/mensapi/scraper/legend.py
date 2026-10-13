@@ -23,15 +23,16 @@ ALLERGENS_BY_IMAGE = {
 }
 
 ADDITIVES_BY_IMAGE = {
-    13: "chicken",
-    14: "beef",
     4: "pork",
-    11: "preservative",
     5: "antioxidant",
     7: "black colouring",
     8: "colouring",
-    28: "sulphured",
+    11: "preservatives",
+    13: "chicken",
+    14: "beef",
     17: "caffeine",
+    21: "sugars",
+    28: "sulphured",
 }
 
 
