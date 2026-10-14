@@ -1,0 +1,25 @@
+<script lang="ts">
+  import * as d3 from 'd3';
+  let { nutrients, allergens } = $props();
+
+  type Slice = {
+	label: string;
+	value: number;
+  };
+
+
+  let entries: Slice[] = $derived([
+	{ label: 'Protein', value: nutrients.protein },
+	{ label: 'Fat', value: nutrients.fat },
+	{ label: 'Saturdated Fat', value: nutrients.saturated_fat },
+	{ label: 'Carbohydrates', value: nutrients.fat },
+   ]);
+
+  const size = 200;
+  const radius = size / 2;
+
+  let arcs = $derived(d3.pie<Slice>().value((d) => d.value)(entries))
+  
+  const arcPath = d3.arc<d3.PieArcDatum<Slice>>()
+
+</script>
