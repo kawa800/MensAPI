@@ -3,6 +3,7 @@
 	let { dishes } = $props();
 </script>
 
+<div class="dish-grid">
 {#each dishes as dish}
 	<div class="dish-component"> 
 		<div class="dish-header">
@@ -19,3 +20,13 @@
 		<DishChart nutrients={dish.nutrients} allergens={dish.allergens}/>
 	</div>
 {/each}
+</div>
+
+<style>
+	.dish-grid{
+		display: grid;
+		justify-content: center;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+</style>
