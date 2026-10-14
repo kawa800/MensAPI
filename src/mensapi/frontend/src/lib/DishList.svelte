@@ -10,10 +10,10 @@
 			<h3>{dish.name}</h3>
 			<span class="price"> 
 				<p>
-					Students: {dish.prices.price_students}€
+					Students: {dish.prices.price_students} €
 				</p>
 				<p>
-					Non-Students: {dish.prices.price_non_students}€
+					Non-Students: {dish.prices.price_non_students} €
 				</p>
 				
 		</div>
@@ -23,10 +23,15 @@
 </div>
 
 <style>
-	.dish-grid{
+	.dish-grid {
 		display: grid;
 		justify-content: center;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 1rem;
 	}
+
+	.price {
+		font-size: 0.8em;
+		color: #006BB2;
+	} 
 </style>
