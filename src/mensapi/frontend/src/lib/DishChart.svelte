@@ -38,7 +38,7 @@
     .outerRadius((1.3 * radius));
 </script>
 
-<svg viewBox="{-view} {-view} {view * 2} {view * 2}" width={view * 2} height={view * 2}>
+<svg viewBox="{-view} {-view} {view * 2} {view * 2}">
 	{#each arcs as val, i}
 		<path d={arcGenerator(val) ?? ''} fill={colors[i]}>
 			<title>{val.data.label}: {val.data.value} g</title>
@@ -65,3 +65,12 @@
 		</text>
 	{/each}
 </svg>
+
+
+<style>
+	svg {
+		width: 100%;
+		max-width: 260px;
+		height: auto;
+	}
+</style>
