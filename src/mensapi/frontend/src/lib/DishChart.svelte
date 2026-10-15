@@ -12,7 +12,7 @@
 	{ label: 'Protein', value: nutrients.protein },
 	{ label: 'Fat', value: nutrients.fat },
 	{ label: 'Saturated Fat', value: nutrients.saturated_fat },
-	{ label: 'Carbohydrates', value: nutrients.fat },
+	{ label: 'Carbohydrates', value: nutrients.carbohydrates},
    ]);
   const colors = [
 	'#000000',
@@ -23,7 +23,7 @@
 
   let arcs = $derived(d3.pie<Slice>().value((d) => d.value)(entries))
   
-  const radius = 100;
+  const radius = 140;
   const margin = 80;
   const view = radius + margin
 
@@ -51,9 +51,6 @@
 		  transform="translate({labelGenerator.centroid(val).join(' ')})"
 		  >{val.data.label}
 		</text>
-		<text x="0" y="0" text-anchor="middle" font-size="15" font-weight="700">
-		{Math.round(nutrients.kcal)} kcal
-		</text>
 		<text
 		  x="0"
 		  y="1.2em"
@@ -64,13 +61,7 @@
 		  >{val.data.value + ' g'}
 		</text>
 	{/each}
+		<text x="0" y="0" text-anchor="middle" font-size="15" font-weight="700">
+		{Math.round(nutrients.kcal)} kcal
+		</text>
 </svg>
-
-
-<style>
-	svg {
-		width: 100%;
-		max-width: 260px;
-		height: auto;
-	}
-</style>
